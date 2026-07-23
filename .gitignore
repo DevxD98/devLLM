@@ -1,0 +1,41 @@
+# ── DevLLM: version the recipe, not the output ──────────────────────────
+
+# Model weights — large, binary, regenerable from config + seed + data.
+checkpoints/**
+!checkpoints/README.md
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# Raw datasets — large and often licensed. We version provenance, not data.
+datasets/**
+!datasets/README.md
+!datasets/SOURCES.md
+
+# Generated experiment/benchmark artifacts (keep the write-ups, drop the blobs)
+experiments/**/results/
+benchmarks/results/
+outputs/*.bin
+
+# Token-id caches
+*.idx
+*.tok
+
+# ── Python ──────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+*.egg-info/
+
+# ── macOS ───────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+
+# ── Editors ─────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
