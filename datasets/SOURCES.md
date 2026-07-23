@@ -1,0 +1,69 @@
+# Dataset Sources & Provenance
+
+> The recipe, not the groceries. Raw corpora are git-ignored; this file records **exactly**
+> where each came from, its license, and how it was prepared — so any training run is
+> reproducible and legally clean (principle 4). **No corpus is trained on until its row here
+> is filled in.** The rationale for these choices is in
+> [`../docs/17_DATASET_GUIDE.md`](../docs/17_DATASET_GUIDE.md).
+
+## Template (copy per corpus)
+
+```
+### <corpus name>
+- Source URL:
+- Version / snapshot date:
+- Downloaded on:
+- License:               (and link)
+- Size (raw):
+- Intended use:          (sanity / primary / stretch / experiment)
+- Cleaning applied:      (encoding, whitespace, casing, control chars — list every choice)
+- Vocab produced:        (char set size, for char tokenizer)
+- Train/val split:       (ratio + seed)
+- Prepared artifact:     (path to the git-ignored *.idx, and the command that made it)
+- Notes / gotchas:
+```
+
+---
+
+## Corpora
+
+### Tiny Shakespeare  — *planned: sanity / overfit set*
+- Source URL: _(fill: the canonical tinyshakespeare input.txt)_
+- Version / snapshot date: _tbd_
+- Downloaded on: _tbd_
+- License: **public domain** (Shakespeare's works)
+- Size (raw): ~1 MB
+- Intended use: **sanity** — deliberate overfit to prove the training loop learns; first
+  target for v0.1.
+- Cleaning applied: _tbd — record every choice (e.g. keep original casing)_
+- Vocab produced: ~65 characters (record exact set)
+- Train/val split: 90/10, seed _tbd_
+- Prepared artifact: `datasets/shakespeare/ids.idx` (git-ignored)
+- Notes: memorizes quickly — good for the overfit test, not a generalization claim.
+
+### TinyStories — *planned: primary corpus*
+- Source URL: _(fill: the TinyStories dataset release)_
+- Version / snapshot date: _tbd_
+- Downloaded on: _tbd_
+- License: **verify upstream terms before training** (do not assume)
+- Size (raw): ~hundreds of MB
+- Intended use: **primary** — best capacity match for a 1–4M-param model.
+- Cleaning applied: _tbd_
+- Vocab produced: _tbd_
+- Train/val split: 90/10, seed _tbd_
+- Prepared artifact: `datasets/tinystories/ids.idx` (git-ignored)
+- Notes: the reason we expect coherent output at all (see the TinyStories paper).
+
+### WikiText-2 — *optional: stretch complexity*
+- Status: candidate only; add full provenance if/when used.
+- License: CC BY-SA (verify current terms).
+
+### (excluded) OpenWebText / SlimPajama / FineWeb
+- **Not used for training at this scale** — recorded here so the exclusion is deliberate and
+  documented, not an oversight. Rationale: too large/diverse for a tiny model (mush), and
+  impractical on an 8 GB fanless Air. See [`../docs/17_DATASET_GUIDE.md`](../docs/17_DATASET_GUIDE.md).
+
+---
+
+> Reminder: fill `_tbd_` fields **before** the corresponding training run, not after. A
+> number produced on unrecorded data does not count (principles 2 & 4).

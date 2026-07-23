@@ -80,11 +80,11 @@ opens with an explicit **Prerequisites** line and closes with a **Next** pointer
 | 10 | `10_GPT_ARCHITECTURE.md` | stacking blocks into a GPT; the LM head |
 | 11 | `11_TRAINING_PIPELINE.md` | loss, backprop, optimizer, scheduling, checkpoints |
 | 12 | `12_INFERENCE.md` | autoregressive generation, temperature, top-k/p, KV cache |
-| 13 | `13_OPTIMIZATION_FOR_APPLE_SILICON.md` | MPS, unified memory, dtype, thermal reality |
-| 14 | `14_BENCHMARKING.md` | measuring tokens/sec, memory, throughput honestly |
+| 13 | [`13_OPTIMIZATION_FOR_APPLE_SILICON.md`](13_OPTIMIZATION_FOR_APPLE_SILICON.md) | MPS, unified memory, dtype, thermal reality |
+| 14 | [`14_BENCHMARKING.md`](14_BENCHMARKING.md) | measuring tokens/sec, memory, throughput honestly |
 | 15 | `15_EXPERIMENT_GUIDE.md` | how to run and record an experiment |
 | 16 | `16_MODEL_CONFIGURATION.md` | every config field and its cost on 8 GB |
-| 17 | `17_DATASET_GUIDE.md` | choosing, preparing, and streaming data |
+| 17 | [`17_DATASET_GUIDE.md`](17_DATASET_GUIDE.md) | choosing, preparing, and streaming data |
 | 18 | `18_RESEARCH_PAPERS.md` | the reading list and why each paper matters |
 | 19 | `19_GLOSSARY.md` | every term, one place (the canonical definitions) |
 | 20 | `20_TODO.md` | live task backlog |
@@ -96,5 +96,17 @@ opens with an explicit **Prerequisites** line and closes with a **Next** pointer
 > `04` or `19`) and *linked* everywhere else. If you find the same concept explained twice,
 > that's a bug — open a note in [`notes/`](../notes/).
 
-Files 03, 08, and 09 are written to full depth as the **quality bar** for the rest;
-04–07 and 10–23 are being filled in to match.
+**Written to full depth so far:** `03`, `08`, `09`, `13`, `14`, `17`, plus the companion
+[`CURRICULUM.md`](CURRICULUM.md) (a week-by-week syllabus for the whole path). The remaining
+`04`–`07`, `10`–`12`, `15`–`16`, `18`–`23` are being filled in to match this quality bar.
+
+### Beyond `docs/`
+
+The textbook is only part of the project. See also, at the repo root and in `research/`:
+[`../SPEC.md`](../SPEC.md) (the technical source of truth),
+[`../ENGINEERING_PRINCIPLES.md`](../ENGINEERING_PRINCIPLES.md) (the constitution),
+[`../research/ARCHITECTURE_REVIEW.md`](../research/ARCHITECTURE_REVIEW.md) (staff-engineer
+design critique),
+[`../research/OPTIMIZATION_BACKLOG.md`](../research/OPTIMIZATION_BACKLOG.md),
+[`../research/tiny_gpt_landscape.md`](../research/tiny_gpt_landscape.md), and
+[`../tests/TESTING_STRATEGY.md`](../tests/TESTING_STRATEGY.md).
