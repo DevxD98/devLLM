@@ -31,7 +31,7 @@
 | 9 | **Tuned batch/block for the 8 GB ceiling** | ★★★☆☆ | ★★☆☆☆ | **Medium** | experiment-open | [SPEC §6](../SPEC.md) |
 | 10 | **Fused/`SDPA` attention** (if MPS path is faster) | ★★★☆☆ | ★★★☆☆ | **Medium** | experiment-open | [08](../docs/08_ATTENTION.md) |
 | 11 | **Tiled / FlashAttention-style attn** (avoid T×T mat) | ★★★★☆ | ★★★★★ | **Low (until T is the ceiling)** | planned | [08](../docs/08_ATTENTION.md), [18](../docs/18_RESEARCH_PAPERS.md) |
-| 12 | **Grouped-Query Attention** (shrink KV cache) | ★★★☆☆ | ★★★★☆ | **Low** | planned | [future_architecture](architecture/future_architecture.md) |
+| 12 | **Grouped-Query Attention** (shrink KV cache) | ★★★☆☆ | ★★★★☆ | **Low** | planned | [future_architecture](../architecture/future_architecture.md) |
 | 13 | **Quantized inference** (int8/int4 for deploy) | ★★★☆☆ | ★★★★☆ | **Low (v1.0+)** | planned | [13](../docs/13_OPTIMIZATION_FOR_APPLE_SILICON.md) |
 | 14 | **MLX port** as alt runtime | ★★★☆☆ | ★★★★☆ | **Low (research)** | experiment-open | [tiny_gpt_landscape](tiny_gpt_landscape.md) |
 | 15 | **`torch.compile`** on MPS (if/when it helps) | ★★☆☆☆ | ★★☆☆☆ | **Low** | experiment-open | [13](../docs/13_OPTIMIZATION_FOR_APPLE_SILICON.md) |
