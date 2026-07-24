@@ -174,13 +174,17 @@ We welcome contributions, provided they align strictly with the project's educat
 ## 📡 Status
 
 ```
-   phase 0  foundations ......  ▓▓▓▓▓▓▓▓▓▓  documentation scaffolding
-   phase 1  nlp foundations ..  ░░░░░░░░░░  planned
-   phase 2  tinygpt .........   ░░░░░░░░░░  planned
-   phase 3  training ........   ░░░░░░░░░░  planned
-   phase 4  optimization ....   ░░░░░░░░░░  planned
-   phase 5  research ........   ░░░░░░░░░░  ongoing
+   phase 0  foundations ......  ▓▓▓▓▓▓▓▓▓▓  done — autograd toy · XOR · MNIST
+   phase 1  nlp foundations ..  ▓▓▓▓▓▓▓▓▓▓  done — char tokenizer · data loader
+   phase 2  tinygpt .........   ▓▓▓▓▓▓▓▓▓▓  done — 0.82M GPT, param-exact
+   phase 3  training ........   ▓▓▓▓▓▓▓▓▓▓  done — trains! val loss 4.17 → 1.54
+   phase 4  optimization ....   ░░░░░░░░░░  next — KV cache · bf16 · benchmarks
+   phase 5  research ........   ▓▓▓▓▓░░░░░  ongoing — 6 paper notes
 ```
+
+**v0.1 speaks.** The trained model generates recognizable Shakespeare (character names, the
+`NAME:` play format) — see [`outputs/trained_shakespeare_sample.txt`](outputs/trained_shakespeare_sample.txt),
+next to the pre-training garbage in `untrained_baseline.txt`. 39 tests green, CI-gated.
 
 An active, in-progress **3–4 month educational build**. The documentation is written *ahead of* the code on purpose: **you cannot engineer clearly what you cannot explain clearly.**
 

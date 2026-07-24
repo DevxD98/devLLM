@@ -14,6 +14,30 @@ The Devlog is a chronological record of major project milestones, architectural 
 
 ## Chronological Entries
 
+### 2026-07-25 — Phases 0–3 Code + First Coherent Text (v0.1 milestone) 🎉
+- **Milestone:** JimmyLabs trains end-to-end and generates recognizable Shakespeare.
+  Validation loss fell **4.174 → 1.54** over 5000 steps on the M1 (MPS).
+- **Code shipped:** autograd toy + XOR + MNIST (Phase 0); character tokenizer + data
+  loader (Phase 1); the GPT model — `config`, `embedding`, `attention`, `feedforward`,
+  `block`, `gpt` (Phase 2); training loop, warmup→cosine LR schedule, checkpointing, and
+  autoregressive generation (Phase 3). **39 tests green**; CI added
+  (`.github/workflows/tests.yml`).
+- **Result:** first trained sample in
+  [`outputs/trained_shakespeare_sample.txt`](../outputs/trained_shakespeare_sample.txt) —
+  real character names and the `NAME:` play format — versus the pre-training garbage in
+  `untrained_baseline.txt`. Exactly the expected quality for a 0.82M char-GPT.
+- **Postmortem — the flat-loss bug:** the *first* 5000-step run sat at loss = ln(65) =
+  4.174 the whole way; the model learned nothing. Root cause: `train.py` called
+  `get_batch('train', …)` — passing a **string** where a data tensor belongs — and a
+  `try/except` **silently trained on random tokens** instead of failing. Fix: correct the
+  call + **delete the silent fallback** (missing data now errors loudly) + a regression
+  test (`test_train_integration.py`).
+  **Lesson (now a standing rule): never catch-and-substitute data/inputs — fail loudly.**
+  A silent fallback turned a one-line typo into a 5000-step waste, and the end-to-end run
+  caught what all 37 unit tests structurally could not.
+
+---
+
 ### 2026-07-24 — Phase 0–4 Core Documentation Completion
 - **Milestone:** Completed foundational, model architecture, training, inference, and experiment documentation across `docs/04` through `docs/16`.
 - **Key Deliverables:**

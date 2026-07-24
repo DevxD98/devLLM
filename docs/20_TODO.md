@@ -44,13 +44,25 @@ This document tracks active development tasks, milestone goals, and architecture
 
 ---
 
-## Code Implementation Tasks (`src/` & `tests/`)
+## Code Implementation — Phases 0–3 (DONE ✓)
 
-- [ ] Implement character tokenizer in `src/tokenizer/char_tokenizer.py`.
-- [ ] Implement shape tests in `tests/test_shapes.py`.
-- [ ] Implement overfit-a-batch harness in `tests/test_overfit.py`.
-- [ ] Implement pre-norm transformer block in `src/model/transformer.py`.
-- [ ] Implement training loop in `src/train.py`.
+- [x] **Phase 0** — autograd toy + XOR + MNIST (`src/jimmylabs/autograd/`, `scripts/train_mnist.py`).
+- [x] **Phase 1** — character tokenizer + data loader (`src/jimmylabs/tokenizer/`, `data/`).
+- [x] **Phase 2** — GPT model (`src/jimmylabs/model/{config,embedding,attention,feedforward,block,gpt}.py`); param count == 818,048 (SPEC §5).
+- [x] **Phase 3** — training loop, LR schedule, checkpointing, generation (`src/jimmylabs/training/`, `inference/`; `scripts/{prepare_data,train,generate}.py`).
+- [x] Test suite: **39 tests** (shape · known-answer · gradient · overfit-a-batch · regression); CI in `.github/workflows/tests.yml`.
+- [x] **v0.1 milestone** — first coherent Shakespeare, val loss 1.54 (`outputs/trained_shakespeare_sample.txt`).
+
+---
+
+## Phase 4 — Optimization (next)
+
+- [ ] Record the **baseline benchmark** (train/gen tokens/sec, peak mem, ckpt size) — [`docs/14`](14_BENCHMARKING.md).
+- [ ] **KV cache** (`OPTIMIZATION_BACKLOG` #2) + correctness test: cached output == naive output.
+- [ ] **Gradient accumulation** (#3) — larger effective batch within 8 GB.
+- [ ] **bf16** mixed-precision experiment (#6) — benchmark before adopting.
+- [ ] **Attention visualizer** — reuse the `_attn_weights` already stashed on each forward.
+- [ ] **v0.2** config bump (~2.7M) once optimizations land.
 
 ---
 
