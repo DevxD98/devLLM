@@ -30,14 +30,22 @@ This document serves as the curated reading list of foundational papers that ins
 #### *Improving Language Understanding by Generative Pre-Training* (GPT-1, Radford et al., 2018)
 - **What it introduced:** Decoder-only transformer architecture trained with autoregressive language modeling followed by fine-tuning.
 - **Why it matters:** Demonstrated that self-supervised pre-training on unlabeled text produces rich transferable representations.
+- **Paper Note:** [`research/paper_notes/gpt_1.md`](../research/paper_notes/gpt_1.md).
 
 #### *Language Models are Unsupervised Multitask Learners* (GPT-2, Radford et al., 2019)
 - **What it introduced:** Moving Layer Normalization to the input of each sublayer (Pre-Layer Normalization / Pre-Norm) and scaling model capacity zero-shot.
 - **Why it matters:** Formed the structural foundation for JimmyLabs's pre-norm architecture ([`ADR-0002`](../research/design_decisions/ADR-0002-pre-norm.md)) and weight-tying default ([`ADR-0003`](../research/design_decisions/ADR-0003-weight-tying-default.md)).
+- **Paper Note:** [`research/paper_notes/gpt_2.md`](../research/paper_notes/gpt_2.md).
 
 #### *Language Models are Few-Shot Learners* (GPT-3, Brown et al., 2020)
 - **What it introduced:** Scaling decoder-only transformers to 175B parameters, showing emergent in-context learning capabilities.
 - **Why it matters:** Proved that scaling model parameters and dataset size predictably improves capabilities (Scaling Laws).
+- **Paper Note:** [`research/paper_notes/gpt_3.md`](../research/paper_notes/gpt_3.md).
+
+#### *Training Compute-Optimal Large Language Models* (Chinchilla, Hoffmann et al., 2022)
+- **What it introduced:** Mathematical proof that model size and training tokens should scale equally for optimal compute utilization.
+- **Why it matters:** Defines our parameter-to-token ratio budget ([`17_DATASET_GUIDE.md`](17_DATASET_GUIDE.md)).
+- **Paper Note:** [`research/paper_notes/chinchilla.md`](../research/paper_notes/chinchilla.md).
 
 ---
 
@@ -62,6 +70,7 @@ This document serves as the curated reading list of foundational papers that ins
 #### *FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness* (Dao et al., 2022)
 - **What it introduced:** Tiled attention computation avoiding materialization of the $O(T^2)$ attention score matrix in memory.
 - **Why it matters:** Key candidate for context length scaling within 8 GB memory limits ([`research/OPTIMIZATION_BACKLOG.md` #11](../research/OPTIMIZATION_BACKLOG.md#11)).
+- **Paper Note:** [`research/paper_notes/flash_attention.md`](../research/paper_notes/flash_attention.md).
 
 ---
 

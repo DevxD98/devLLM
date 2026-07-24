@@ -167,6 +167,10 @@ These aren't slogans — they're enforced by the repo's structure. Every optimiz
 
 Apple Silicon is a **first-class target**, not an afterthought → **[docs/13_OPTIMIZATION_FOR_APPLE_SILICON.md](docs/13_OPTIMIZATION_FOR_APPLE_SILICON.md)** · **[architecture/apple_silicon_strategy.md](architecture/apple_silicon_strategy.md)**
 
+## 🤝 Contributing
+
+We welcome contributions, provided they align strictly with the project's educational focus and constitution. Before writing any code, please read our [Engineering Principles](ENGINEERING_PRINCIPLES.md) and review the [Contributing Guide](CONTRIBUTING.md) for our ADR, experiment, and documentation workflows.
+
 ## 📡 Status
 
 ```
