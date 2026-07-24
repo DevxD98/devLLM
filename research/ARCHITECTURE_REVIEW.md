@@ -168,10 +168,10 @@ jump to the biggest model that fits; grow into it so every increase is attributa
 these fixes land in docs:
 
 - [ ] **R1** — `SPEC.md` with real param/memory arithmetic (done in this batch).
-- [ ] **R2** — make weight tying the v0.1 default; update roadmap framing.
+- [x] **R2** — make weight tying the v0.1 default; update roadmap framing.
 - [ ] **R3** — commit to the "every folder earns its keep by v0.1" checklist in `20_TODO`.
 - [ ] **R5** — write the evaluation contract into `SPEC.md`.
-- [ ] Add ADRs for **pre-norm** and **weight-tying-by-default** (currently only ADR-0001 exists).
+- [x] Add ADRs for **pre-norm** and **weight-tying-by-default** (currently only ADR-0001 exists).
 - [ ] Add the **attention visualizer** and **generation-before-training baseline** to the
       Phase plan.
 

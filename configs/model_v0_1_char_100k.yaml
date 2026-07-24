@@ -1,0 +1,74 @@
+# configs/model_v0_1_char_100k.yaml
+# DevLLM v0.1 Character Baseline Model Configuration
+# Target: ~0.82M parameters (computed baseline in SPEC.md §3 & §5)
+# Fits comfortably within 8 GB unified memory on Apple Silicon (MPS backend)
+
+# ==============================================================================
+# Model Architecture Hyperparameters
+# ==============================================================================
+
+# Vocabulary size: unique characters in Shakespeare dataset (~65 chars)
+# Memory cost: Token embedding weight matrix shape (vocab_size, n_embd) = 65 x 128 = 8,320 params (~33.3 KB in fp32)
+vocab_size: 65
+
+# Number of transformer layers (stacked pre-norm blocks)
+# Memory cost: 4 blocks x ~198K params/block = ~793K params (~3.17 MB in fp32)
+n_layer: 4
+
+# Number of parallel attention heads in multi-head self-attention
+# Constraint: n_embd (128) must be divisible by n_head (4) -> d_k = 32 per head
+# Memory cost: Attention projection params remain 4 * n_embd^2 = 65,536 per layer regardless of head count
+n_head: 4
+
+# Hidden embedding dimension (width C across model blocks)
+# Memory cost: Dominates capacity; per-block parameters scale as ~12 * n_embd^2
+n_embd: 128
+
+# Maximum context sequence length (block size / window T)
+# Memory cost: Position embedding (128 x 128 = 16,384 params). Attention matrix scales as O(B * h * T^2)
+block_size: 128
+
+# Dropout probability applied to residual and attention connections (regularization)
+# Memory cost: 0 params; stores binary mask during forward pass
+dropout: 0.1
+
+# Weight tying: share weights between token embedding and output LM head (ADR-0003)
+# Memory cost: Saves vocab_size * n_embd = 8,320 params, plus gradient and Adam optimizer states
+weight_tying: true
+
+
+# ==============================================================================
+# Training & Optimization Hyperparameters
+# ==============================================================================
+
+# Batch size: number of parallel sequences per forward/backward step
+# Memory cost: Primary knob for activation memory. At B=32, attention memory is ~32 MB (comfortable on 8 GB)
+batch_size: 32
+
+# Peak learning rate for AdamW optimizer
+# Memory cost: 0 params/memory
+lr: 0.001
+
+# Linear learning rate warmup steps from 0 to lr
+# Memory cost: 0 params/memory
+warmup_steps: 100
+
+# Total training iterations
+# Memory cost: 0 params/memory
+max_steps: 5000
+
+# Weight decay (L2 penalty) applied to 2D matmul weights (excludes biases and LayerNorm)
+# Memory cost: 0 params/memory
+weight_decay: 0.1
+
+# Global gradient norm clipping threshold to prevent exploding gradients on MPS
+# Memory cost: 0 params/memory
+grad_clip: 1.0
+
+# Evaluation frequency in training steps (validation loss and prompt sampling)
+# Memory cost: 0 params/memory
+eval_interval: 250
+
+# Deterministic random seed for PyTorch, NumPy, Python random, and MPS
+# Memory cost: 0 params/memory
+seed: 1337
