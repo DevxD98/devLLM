@@ -34,7 +34,7 @@
 ![Status](https://img.shields.io/badge/status-documentation--first-informational?style=flat-square)
 ![Philosophy](https://img.shields.io/badge/philosophy-WHY_before_HOW-blueviolet?style=flat-square)
 ![Timeline](https://img.shields.io/badge/timeline-3–4_months-orange?style=flat-square)
-![License](https://img.shields.io/badge/license-TBD-lightgrey?style=flat-square)
+![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 
 <br/>
 
@@ -207,7 +207,7 @@ Yes — with an honest boundary. We use PyTorch for **tensors, automatic differe
         └─┘└─┘└─┘└─┘  the difference is it had to guess the next one.
 ```
 
-<sub><strong>Built by hand on Apple Silicon</strong> · Documentation‑first, forever · License: TBD</sub>
+<sub><strong>Built by hand on Apple Silicon</strong> · Documentation‑first, forever · [MIT](LICENSE) licensed</sub>
 
 <sub>⭐ if you believe small, understood models still matter.</sub>
 
