@@ -1,0 +1,20 @@
+# Training configuration for the tiny Shakespeare dataset
+
+# 1. Architecture parameters (v0.1 baseline)
+vocab_size: 65     # characters
+n_layer: 4         # transformer blocks
+n_head: 4          # attention heads
+n_embd: 128        # embedding dimension
+block_size: 128    # context length
+dropout: 0.1       # dropout probability
+weight_tying: true # tie token embeddings to LM head weights
+
+# 2. Training hyperparameters
+batch_size: 16     # batch size B
+lr: 0.001          # peak learning rate
+warmup_steps: 100  # linear warmup steps
+max_steps: 5000    # total training steps
+weight_decay: 0.1  # L2 regularization for 2D params
+grad_clip: 1.0     # max global gradient norm
+eval_interval: 200 # steps between evaluation
+seed: 1337         # random seed

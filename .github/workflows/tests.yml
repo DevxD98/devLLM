@@ -1,0 +1,35 @@
+name: tests
+
+# Run the full pytest suite on every push and PR to main.
+# The suite is the project's definition of "done" (ENGINEERING_PRINCIPLES.md §6,
+# tests/TESTING_STRATEGY.md) — this makes it a gate, not a courtesy.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install package + dev deps
+        # CPU torch wheel on CI; MPS is Apple-only and not needed for correctness tests.
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+          pip install pytest
+
+      - name: Run test suite
+        # Tests run on CPU (device auto-falls back when MPS is absent — see utils/seed.py,
+        # docs/13). No network needed: the MNIST smoke test uses synthetic tensors.
+        run: pytest -q

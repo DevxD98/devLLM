@@ -28,17 +28,17 @@
 ## Corpora
 
 ### Tiny Shakespeare  — *planned: sanity / overfit set*
-- Source URL: _(fill: the canonical tinyshakespeare input.txt)_
-- Version / snapshot date: _tbd_
-- Downloaded on: _tbd_
+- Source URL: https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt
+- Version / snapshot date: 2026-07-24 (latest from master branch)
+- Downloaded on: 2026-07-24
 - License: **public domain** (Shakespeare's works)
-- Size (raw): ~1 MB
+- Size (raw): 1,115,394 bytes (~1.1 MB)
 - Intended use: **sanity** — deliberate overfit to prove the training loop learns; first
   target for v0.1.
-- Cleaning applied: _tbd — record every choice (e.g. keep original casing)_
-- Vocab produced: ~65 characters (record exact set)
-- Train/val split: 90/10, seed _tbd_
-- Prepared artifact: `datasets/shakespeare/ids.idx` (git-ignored)
+- Cleaning applied: None (original casing and whitespace preserved)
+- Vocab produced: 65 characters
+- Train/val split: 90/10 contiguous sequential split (no shuffling)
+- Prepared artifact: `datasets/shakespeare/train.pt` and `datasets/shakespeare/val.pt`
 - Notes: memorizes quickly — good for the overfit test, not a generalization claim.
 
 ### TinyStories — *planned: primary corpus*
