@@ -51,7 +51,7 @@ Implement:
 - LayerNorm
 - Residual connections
 - Transformer block
-- GPT model
+- GPT model (with weight tying as v0.1 default; see SPEC §5)
 
 Target:
 ~1M parameters.
@@ -93,7 +93,6 @@ Measure:
 - Training throughput
 
 Optimize:
-- Weight tying
 - Better batching
 - Mixed precision (where supported)
 - KV cache
