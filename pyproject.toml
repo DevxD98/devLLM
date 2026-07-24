@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jimmylabs"
+version = "0.1.0"
+description = "A from-scratch, educational GPT model built on Apple Silicon."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.0.0",
+    "numpy>=1.20.0",
+    "pyyaml>=6.0",
+    "torchvision>=0.15.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+]

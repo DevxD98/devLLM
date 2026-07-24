@@ -39,3 +39,6 @@ env/
 .vscode/
 .idea/
 *.swp
+
+# Downloaded datasets cache (regenerable; keep out of git)
+/data/

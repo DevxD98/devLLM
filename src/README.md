@@ -38,3 +38,17 @@ src/
 
 Documentation-first. This README is the contract the code will fulfill in roadmap phases
 1–3. No implementation is committed yet.
+
+## Running the code
+
+To install the project in editable mode with development dependencies:
+
+```bash
+pip install -e .[dev]
+```
+
+To run the test suite (proving the interface contracts):
+
+```bash
+pytest
+```

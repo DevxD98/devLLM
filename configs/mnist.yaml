@@ -1,0 +1,10 @@
+# configs/mnist.yaml
+# Configuration for the MNIST classifier MLP.
+
+# Training Hyperparameters
+learning_rate: 0.001
+batch_size: 64
+epochs: 5
+
+# Model Architecture
+hidden_size: 128
