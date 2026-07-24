@@ -15,19 +15,19 @@ class TokenAndPositionEmbedding(nn.Module):
         self.drop = nn.Dropout(config.dropout)
         self.block_size = config.block_size
         
-    def forward(self, idx: torch.Tensor) -> torch.Tensor:
+    def forward(self, idx: torch.Tensor, pos_offset: int = 0) -> torch.Tensor:
         b, t = idx.size()
         
         # Ensure sequence length is within block_size bounds
-        if t > self.block_size:
-            raise ValueError(f"Cannot forward sequence of length {t}, block size is only {self.block_size}")
+        if t + pos_offset > self.block_size:
+            raise ValueError(f"Cannot forward sequence of length {t + pos_offset}, block size is only {self.block_size}")
             
         # Token embeddings: (B, T) -> (B, T, C)
         tok_emb = self.token_embedding(idx)
         
         # Position embeddings: (T) -> (T, C)
-        # We generate positions [0, 1, ..., T-1] and get their embeddings
-        pos = torch.arange(0, t, dtype=torch.long, device=idx.device)
+        # We generate positions [pos_offset, pos_offset + t - 1] and get their embeddings
+        pos = torch.arange(pos_offset, pos_offset + t, dtype=torch.long, device=idx.device)
         pos_emb = self.position_embedding(pos)
         
         # Sum them up and apply dropout

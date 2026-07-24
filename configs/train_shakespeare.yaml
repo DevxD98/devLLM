@@ -10,7 +10,8 @@ dropout: 0.1       # dropout probability
 weight_tying: true # tie token embeddings to LM head weights
 
 # 2. Training hyperparameters
-batch_size: 16     # batch size B
+grad_accum_steps: 4 # number of micro-batches to accumulate before stepping
+batch_size: 16     # batch size B (micro-batch size)
 lr: 0.001          # peak learning rate
 warmup_steps: 100  # linear warmup steps
 max_steps: 5000    # total training steps

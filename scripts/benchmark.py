@@ -13,6 +13,7 @@ import time
 import platform
 import argparse
 import statistics
+import contextlib
 import torch
 
 from jimmylabs.model.config import GPTConfig
@@ -34,12 +35,19 @@ def main():
     p.add_argument('--warmup', type=int, default=10)
     p.add_argument('--iters', type=int, default=50)
     p.add_argument('--gen_tokens', type=int, default=200)
+    p.add_argument('--use_cache', action='store_true', help='Use KV cache for generation')
+    p.add_argument('--grad_accum_steps', type=int, default=1)
+    p.add_argument('--dtype', type=str, default='fp32', choices=['fp32', 'bf16', 'fp16'])
     args = p.parse_args()
 
     import yaml
     cfg = yaml.safe_load(open(args.config))
     seed_everything(cfg.get('seed', 1337))
     device = 'mps' if torch.backends.mps.is_available() else ('cuda' if torch.cuda.is_available() else 'cpu')
+    
+    # Setup mixed precision context
+    ptdtype = {'fp32': torch.float32, 'bf16': torch.bfloat16, 'fp16': torch.float16}[args.dtype]
+    ctx = torch.autocast(device_type=device, dtype=ptdtype) if args.dtype != 'fp32' else contextlib.nullcontext()
 
     B, T = cfg['batch_size'], cfg['block_size']
     model_config = GPTConfig(vocab_size=cfg['vocab_size'], n_layer=cfg['n_layer'],
@@ -58,7 +66,7 @@ def main():
     print(f"  torch        : {torch.__version__}")
     print(f"  device       : {device}   dtype: fp32")
     print(f"  config       : L={cfg['n_layer']} h={cfg['n_head']} C={cfg['n_embd']} "
-          f"block={T} batch={B}  params={n_params:,}")
+          f"block={T} batch={B} accum={args.grad_accum_steps} params={n_params:,}")
     print(f"  protocol     : warmup={args.warmup} discarded, median of {args.iters}, MPS-synced")
     print(f"  thermal      : (record manually: cold / warm / sustained)")
     print("=" * 60)
@@ -69,32 +77,51 @@ def main():
 
     # ---- 1) training step throughput ----
     model.train()
+    opt.zero_grad(set_to_none=True)
     for _ in range(args.warmup):
-        _, loss = model(X, Y); opt.zero_grad(set_to_none=True); loss.backward(); opt.step()
+        for _ in range(args.grad_accum_steps):
+            with ctx:
+                _, loss = model(X, Y)
+            loss = loss / args.grad_accum_steps
+            loss.backward()
+        opt.step()
+        opt.zero_grad(set_to_none=True)
     sync(device)
     step_times = []
     for _ in range(args.iters):
         t0 = time.perf_counter()
-        _, loss = model(X, Y); opt.zero_grad(set_to_none=True); loss.backward(); opt.step()
+        for _ in range(args.grad_accum_steps):
+            with ctx:
+                _, loss = model(X, Y)
+            loss = loss / args.grad_accum_steps
+            loss.backward()
+        opt.step()
+        opt.zero_grad(set_to_none=True)
         sync(device)
         step_times.append(time.perf_counter() - t0)
     med_step = statistics.median(step_times)
-    train_tok_s = (B * T) / med_step
+    train_tok_s = (B * T * args.grad_accum_steps) / med_step
 
     # ---- 2) generation throughput ----
     model.eval()
-    idx0 = torch.zeros((1, 1), dtype=torch.long, device=device)
-    with torch.no_grad():
-        _ = generate(model, idx0, max_new_tokens=args.warmup)  # warmup
-        sync(device)
-        t0 = time.perf_counter()
-        _ = generate(model, idx0, max_new_tokens=args.gen_tokens)
-        sync(device)
-        gen_dt = time.perf_counter() - t0
+    start_ids = torch.zeros((1, 1), dtype=torch.long, device=device)
+    
+    # warmup gen (just 10 tokens to compile/warm up)
+    with torch.no_grad(), ctx:
+        _ = generate(model, start_ids, max_new_tokens=10, temperature=1.0, top_k=1, use_cache=args.use_cache)
+    sync(device)
+    
+    # timed gen
+    t0 = time.perf_counter()
+    with torch.no_grad(), ctx:
+        _ = generate(model, start_ids, max_new_tokens=args.gen_tokens, temperature=1.0, top_k=1, use_cache=args.use_cache)
+    sync(device)
+    t1 = time.perf_counter()
+    gen_dt = t1 - t0
     gen_tok_s = args.gen_tokens / gen_dt
 
     # ---- 3) single forward latency ----
-    with torch.no_grad():
+    with torch.no_grad(), ctx:
         sync(device); t0 = time.perf_counter(); _ = model(X); sync(device)
         fwd_ms = (time.perf_counter() - t0) * 1000
 

@@ -4,6 +4,7 @@ import math
 import yaml
 import torch
 import argparse
+import contextlib
 from pathlib import Path
 
 from jimmylabs.model.config import GPTConfig
@@ -17,6 +18,7 @@ from jimmylabs.data.loader import get_batch
 def main():
     parser = argparse.ArgumentParser(description="Train JimmyLabs GPT")
     parser.add_argument('--config', type=str, default='configs/train_shakespeare.yaml', help='Path to training config')
+    parser.add_argument('--data_dir', type=str, default='datasets/shakespeare', help='Directory holding train.pt/val.pt')
     args = parser.parse_args()
 
     # Load configuration
@@ -63,12 +65,13 @@ def main():
     lr_max = config_dict['lr']
     grad_clip = config_dict['grad_clip']
     eval_interval = config_dict['eval_interval']
+    grad_accum_steps = config_dict.get('grad_accum_steps', 1)
     batch_size = config_dict['batch_size']
     block_size = config_dict['block_size']
 
     # Load the prepared dataset. Fail LOUDLY if it's missing — never silently train on
     # random data (a flat loss at ln(vocab) is the symptom of exactly that mistake).
-    data_dir = Path('datasets/shakespeare')
+    data_dir = Path(args.data_dir)
     train_path, val_path = data_dir / 'train.pt', data_dir / 'val.pt'
     if not train_path.exists() or not val_path.exists():
         raise FileNotFoundError(
@@ -81,7 +84,16 @@ def main():
     os.makedirs('checkpoints', exist_ok=True)
     best_val_loss = float('inf')
     
+    # Pre-zero gradients
+    optimizer.zero_grad(set_to_none=True)
+    
     t0 = time.time()
+    
+    # Setup mixed precision context
+    dtype_str = config_dict.get('dtype', 'fp32')
+    ptdtype = {'fp32': torch.float32, 'bf16': torch.bfloat16, 'fp16': torch.float16}[dtype_str]
+    ctx = torch.autocast(device_type=device, dtype=ptdtype) if dtype_str != 'fp32' else contextlib.nullcontext()
+    
     for step in range(1, max_steps + 1):
         
         # 1. Update learning rate
@@ -89,23 +101,26 @@ def main():
         for param_group in optimizer.param_groups:
             param_group['lr'] = lr
             
-        # 2. Get batch  (get_batch signature: data, block_size, batch_size, device)
-        X, Y = get_batch(train_data, block_size, batch_size, device)
+        # 2. Forward, Backward & Accumulate over grad_accum_steps
+        for micro_step in range(grad_accum_steps):
+            X, Y = get_batch(train_data, block_size, batch_size, device)
+                
+            with ctx:
+                logits, loss = model(X, Y)
             
-        # 3. Forward & Loss
-        logits, loss = model(X, Y)
-        
-        # 4. Backward
-        loss.backward()
-        
-        # 5. Clip gradients
+            # Scale loss for mathematical equivalence to a large batch
+            loss = loss / grad_accum_steps
+            
+            loss.backward()
+            
+        # 3. Clip gradients (applied to accumulated gradients)
         clip_gradients(model, grad_clip)
         
-        # 6. Optimizer Step
+        # 4. Optimizer Step
         optimizer.step()
         optimizer.zero_grad(set_to_none=True)
         
-        # 7. Evaluation & Checkpointing
+        # 5. Evaluation & Checkpointing
         if step % eval_interval == 0 or step == max_steps:
             model.eval()
             with torch.no_grad():
@@ -113,7 +128,8 @@ def main():
                     
                 _, val_loss_tensor = model(X_val, Y_val)
                 val_loss = val_loss_tensor.item()
-                train_loss = loss.item() # Note: .item() only called during eval_interval per docs/13
+                # Unscale the loss of the last micro-step for reporting
+                train_loss = loss.item() * grad_accum_steps
                 
                 t1 = time.time()
                 dt = t1 - t0

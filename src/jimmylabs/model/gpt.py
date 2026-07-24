@@ -42,21 +42,33 @@ class GPT(nn.Module):
         elif isinstance(module, nn.Embedding):
             torch.nn.init.normal_(module.weight, mean=0.0, std=0.02)
             
-    def forward(self, idx: torch.Tensor, targets: torch.Tensor = None):
+    def forward(self, idx: torch.Tensor, targets: torch.Tensor = None, use_cache: bool = False, past_key_values: list = None):
         """
         Args:
             idx: (B, T) tensor of integer token indices
             targets: (B, T) tensor of integer token indices (optional)
+            use_cache: whether to return KV cache state
+            past_key_values: list of layer KV states (optional)
         Returns:
             logits: (B, T, V) tensor
             loss: cross entropy loss (scalar) if targets provided, else None
+            past_key_values: list of KV states if use_cache=True
         """
         # Embeddings
-        x = self.transformer.wte(idx)
+        pos_offset = past_key_values[0][0].size(-2) if past_key_values is not None else 0
+        x = self.transformer.wte(idx, pos_offset=pos_offset)
+        
+        presents = [] if use_cache else None
         
         # Transformer blocks
-        for block in self.transformer.h:
-            x = block(x)
+        for i, block in enumerate(self.transformer.h):
+            past = past_key_values[i] if past_key_values is not None else None
+            
+            if use_cache:
+                x, present = block(x, use_cache=True, past_key_value=past)
+                presents.append(present)
+            else:
+                x = block(x, use_cache=False, past_key_value=past)
             
         # Final LayerNorm
         x = self.transformer.ln_f(x)
@@ -69,6 +81,8 @@ class GPT(nn.Module):
             # Flatten for cross_entropy: (B*T, V) and (B*T)
             loss = torch.nn.functional.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1))
             
+        if use_cache:
+            return logits, loss, presents
         return logits, loss
         
     def configure_optimizers(self, weight_decay: float, learning_rate: float, device_type: str) -> torch.optim.Optimizer:

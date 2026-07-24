@@ -2,27 +2,32 @@ import torch
 from jimmylabs.model.gpt import GPT
 
 @torch.no_grad()
-def generate(model: GPT, idx: torch.Tensor, max_new_tokens: int, temperature: float = 1.0, top_k: int = None, top_p: float = None) -> torch.Tensor:
+def generate(model: GPT, idx: torch.Tensor, max_new_tokens: int, temperature: float = 1.0, top_k: int = None, top_p: float = None, use_cache: bool = False) -> torch.Tensor:
     """
-    Autoregressive generation loop taking O(N) forward passes without KV cache (Naive phase).
-    Args:
-        model: The trained GPT model.
-        idx: (B, T) tensor of context token indices.
-        max_new_tokens: Number of tokens to generate.
-        temperature: Softmax temperature. If close to 0, acts as greedy decoding.
-        top_k: If set, only keep the top_k tokens with highest probability.
-        top_p: Nucleus sampling. If set, keep tokens whose cumulative probability exceeds top_p.
-    Returns:
-        (B, T + max_new_tokens) tensor of appended token indices.
+    Autoregressive generation loop taking O(N) forward passes without KV cache (Naive phase)
+    or O(T) with KV cache.
     """
     block_size = model.config.block_size
+    past_key_values = None
     
     for _ in range(max_new_tokens):
-        # Truncate to block_size if necessary
-        idx_cond = idx if idx.size(1) <= block_size else idx[:, -block_size:]
+        if use_cache and past_key_values is not None:
+            # Trim cache if we are at max block_size
+            seq_len = past_key_values[0][0].size(-2)
+            if seq_len >= block_size:
+                # Keep the last block_size - 1 tokens to leave room for the 1 new token
+                trim_len = seq_len - (block_size - 1)
+                past_key_values = [(k[:, :, trim_len:], v[:, :, trim_len:]) for k, v in past_key_values]
+            
+            idx_cond = idx[:, -1:]
+        else:
+            idx_cond = idx if idx.size(1) <= block_size else idx[:, -block_size:]
         
         # Forward pass to get logits for the sequence
-        logits, _ = model(idx_cond)
+        if use_cache:
+            logits, _, past_key_values = model(idx_cond, use_cache=True, past_key_values=past_key_values)
+        else:
+            logits, _ = model(idx_cond)
         
         # We only care about the last step's logits
         logits = logits[:, -1, :] # (B, V)
