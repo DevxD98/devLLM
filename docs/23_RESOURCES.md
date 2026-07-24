@@ -6,7 +6,7 @@
 
 ## Purpose
 
-A curated catalog of high-quality courses, repositories, visual guides, and reference implementations that complement DevLLM's educational journey.
+A curated catalog of high-quality courses, repositories, visual guides, and reference implementations that complement JimmyLabs's educational journey.
 
 ---
 
@@ -14,7 +14,7 @@ A curated catalog of high-quality courses, repositories, visual guides, and refe
 
 - **Andrej Karpathy — *Neural Networks: Zero to Hero***
   - *Description:* The gold standard video series for building neural networks, autograd, tokenizers, and GPTs from scratch in Python.
-  - *Relevance:* Spiritual foundation for DevLLM's Stage 2–3 learning path ([`docs/03_LEARNING_PATH.md`](03_LEARNING_PATH.md)).
+  - *Relevance:* Spiritual foundation for JimmyLabs's Stage 2–3 learning path ([`docs/03_LEARNING_PATH.md`](03_LEARNING_PATH.md)).
 
 - **3Blue1Brown — *Neural Networks* & *Essence of Linear Algebra***
   - *Description:* Geometric visual intuitions for matrix transformations, vectors, dot products, and backpropagation.
@@ -40,7 +40,7 @@ A curated catalog of high-quality courses, repositories, visual guides, and refe
 
 ---
 
-## Related DevLLM Documents
+## Related JimmyLabs Documents
 
 - [`03_LEARNING_PATH.md`](03_LEARNING_PATH.md) — The structured 5-stage curriculum.
 - [`18_RESEARCH_PAPERS.md`](18_RESEARCH_PAPERS.md) — Primary literature reading list.

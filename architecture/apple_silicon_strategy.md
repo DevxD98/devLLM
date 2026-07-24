@@ -3,7 +3,7 @@
 > **Concept Doc:** [`docs/13_OPTIMIZATION_FOR_APPLE_SILICON.md`](../docs/13_OPTIMIZATION_FOR_APPLE_SILICON.md)  
 > **Technical Spec:** [`SPEC.md` §10](../SPEC.md#10-dependencies)
 
-This document defines execution placement, MPS device dispatch, zero-copy unified memory hygiene, and thermal throttling strategies for running DevLLM on Apple Silicon (M1/M2/M3).
+This document defines execution placement, MPS device dispatch, zero-copy unified memory hygiene, and thermal throttling strategies for running JimmyLabs on Apple Silicon (M1/M2/M3).
 
 ---
 

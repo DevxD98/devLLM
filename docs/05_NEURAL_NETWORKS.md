@@ -17,7 +17,7 @@ This document builds neural networks from the ground up:
 4. **Backpropagation** — applying the chain rule to derive gradients for every weight.
 5. **The Training Loop** — the iterative cycle of forward, loss, backward, and step.
 
-This document is the **canonical home** in DevLLM for the **overfit-a-batch** debugging technique—the single most effective rule for catching structural bugs in deep learning implementations.
+This document is the **canonical home** in JimmyLabs for the **overfit-a-batch** debugging technique—the single most effective rule for catching structural bugs in deep learning implementations.
 
 ---
 

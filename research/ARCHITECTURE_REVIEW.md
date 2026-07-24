@@ -1,4 +1,4 @@
-# Architecture Review — DevLLM (v0 design)
+# Architecture Review — JimmyLabs (v0 design)
 
 > **Reviewer stance:** written as a Staff ML Engineer would review this before any serious
 > code is committed. The job of this document is to be *useful*, not kind: to find

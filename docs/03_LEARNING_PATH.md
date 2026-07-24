@@ -73,7 +73,7 @@ smoothly. Full definitions live in [`19_GLOSSARY.md`](19_GLOSSARY.md).
 
 - **Tensor** — an n-dimensional array of numbers (a batch of sequences of vectors is a
   3-D tensor). The only data structure a neural network really has.
-- **Parameter / weight** — a number the model *learns*. DevLLM has 1–4 million of them.
+- **Parameter / weight** — a number the model *learns*. JimmyLabs has 1–4 million of them.
 - **Gradient** — for each weight, the direction that would reduce the error; training
   follows gradients downhill.
 - **Loss** — a single number measuring how wrong the model currently is. Training =

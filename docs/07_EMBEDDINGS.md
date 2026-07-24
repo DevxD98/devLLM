@@ -10,12 +10,12 @@
 
 Token IDs (like `[7, 4, 11, 11, 14]`) are discrete integers. Integers carry ordinal assumptions ($11 > 4$) that do not reflect linguistic relationships. Neural networks require continuous vector representations where mathematical distance corresponds to semantic similarity.
 
-This document explains how DevLLM converts discrete token IDs into continuous hidden vectors using two complementary embedding layers:
+This document explains how JimmyLabs converts discrete token IDs into continuous hidden vectors using two complementary embedding layers:
 1. **Token Embeddings** — mapping *what* a token is into vector space.
 2. **Positional Embeddings** — mapping *where* a token occurs in the sequence.
 3. **Weight Tying Introduction** — the concept of sharing weights between input token embeddings and output language model heads ([`ADR-0003`](../research/design_decisions/ADR-0003-weight-tying-default.md)).
 
-This document is the **canonical home** in DevLLM for embedding representations and the conceptual introduction to weight tying.
+This document is the **canonical home** in JimmyLabs for embedding representations and the conceptual introduction to weight tying.
 
 ---
 
@@ -44,7 +44,7 @@ Core embedding concepts:
 
 - **Token Embedding Matrix ($W_{\text{token}}$):** A weight matrix of shape $(V \times C)$ storing a $C$-dimensional vector for each of the $V$ vocabulary tokens.
 - **Positional Embedding Matrix ($W_{\text{pos}}$):** A weight matrix of shape $(T \times C)$ storing a $C$-dimensional vector for each position index $0, 1, \dots, T-1$ up to context window $T = \text{block\_size}$.
-- **Learned Absolute Position Embeddings:** Position representations trained via gradient descent alongside token embeddings (standard in GPT-2 and DevLLM).
+- **Learned Absolute Position Embeddings:** Position representations trained via gradient descent alongside token embeddings (standard in GPT-2 and JimmyLabs).
 - **Weight Tying Concept:** Reusing the token embedding matrix $W_{\text{token}}$ as the linear projection weights for the output Language Model head ($W_{\text{out}} = W_{\text{token}}^T$), reducing parameter count and memory footprint.
 
 ---
@@ -75,7 +75,7 @@ Self-attention ([`08_ATTENTION.md`](08_ATTENTION.md)) is **permutation-equivaria
 To make position matter, we inject positional information into each token vector.
 
 #### Learned Absolute Positional Embeddings
-DevLLM uses learned positional embeddings:
+JimmyLabs uses learned positional embeddings:
 1. Construct a positional index tensor $P = [0, 1, 2, \dots, T-1]$ of shape $(1, T)$.
 2. Lookup corresponding row vectors from positional matrix $W_{\text{pos}}$ of shape $(T \times C)$.
 3. Add token embeddings and positional embeddings element-wise:

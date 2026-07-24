@@ -196,6 +196,6 @@ You master GPT architecture when you can:
 ## Further Reading
 
 - [`11_TRAINING_PIPELINE.md`](11_TRAINING_PIPELINE.md) — **Next:** Training the assembled GPT model with loss, AdamW, and schedulers.
-- [`architecture/model_architecture.md`](../architecture/model_architecture.md) — Tensor shape contracts for all modules in DevLLM.
+- [`architecture/model_architecture.md`](../architecture/model_architecture.md) — Tensor shape contracts for all modules in JimmyLabs.
 
 > **Next:** [`11_TRAINING_PIPELINE.md`](11_TRAINING_PIPELINE.md)

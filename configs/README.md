@@ -33,4 +33,4 @@ See the fully-annotated example in this folder and
 - Filled-in experiment records → [`experiments/`](../experiments/)
 
 > Note: files here are illustrative annotated configs, not yet wired to running code —
-> DevLLM is documentation-first.
+> JimmyLabs is documentation-first.

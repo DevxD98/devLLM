@@ -8,9 +8,9 @@
 
 ## Purpose
 
-This document details the scientific methodology governing experimentation in DevLLM. It transforms machine learning from an ad-hoc process of trial-and-error into a disciplined, hypothesis-driven lab practice.
+This document details the scientific methodology governing experimentation in JimmyLabs. It transforms machine learning from an ad-hoc process of trial-and-error into a disciplined, hypothesis-driven lab practice.
 
-By standardizing experimental design through [`research/experiment_templates/EXPERIMENT_TEMPLATE.md`](../research/experiment_templates/EXPERIMENT_TEMPLATE.md), DevLLM enforces **Principle 4** (*Every experiment is logged and reproducible*) and **Principle 7** (*One change per experiment*) from [`ENGINEERING_PRINCIPLES.md`](../ENGINEERING_PRINCIPLES.md). Following this guide ensures that every training run tests a single falsifiable hypothesis, produces verifiable measurements on the target machine, and leaves an immutable audit trail of learning.
+By standardizing experimental design through [`research/experiment_templates/EXPERIMENT_TEMPLATE.md`](../research/experiment_templates/EXPERIMENT_TEMPLATE.md), JimmyLabs enforces **Principle 4** (*Every experiment is logged and reproducible*) and **Principle 7** (*One change per experiment*) from [`ENGINEERING_PRINCIPLES.md`](../ENGINEERING_PRINCIPLES.md). Following this guide ensures that every training run tests a single falsifiable hypothesis, produces verifiable measurements on the target machine, and leaves an immutable audit trail of learning.
 
 ---
 
@@ -26,7 +26,7 @@ In typical hobby or unstructured ML projects, experiments suffer from critical m
 
 ### The lab notebook philosophy
 
-DevLLM treats the codebase as a research platform rather than a simple model script. Every experiment is a formal record stored in `experiments/NNN_short-name/experiment.md`. 
+JimmyLabs treats the codebase as a research platform rather than a simple model script. Every experiment is a formal record stored in `experiments/NNN_short-name/experiment.md`. 
 
 A hypothesis is formulated **before** initiating execution. If a run refutes the hypothesis, the experiment is not a failure—it is a successful scientific result that prevents future re-litigation of settled choices.
 
@@ -34,7 +34,7 @@ A hypothesis is formulated **before** initiating execution. If a run refutes the
 
 ## Concepts
 
-Scientific experimentation in DevLLM rests on five foundational concepts:
+Scientific experimentation in JimmyLabs rests on five foundational concepts:
 
 - **Hypothesis-Before-Run Contract:** Stating expected outcome and theoretical reasoning prior to launching a training script. Editing the hypothesis post-run is strictly forbidden.
 - **Single-Variable Isolation (Principle 7):** Varying exactly one independent variable relative to a control baseline to establish clear cause-and-effect attribution.

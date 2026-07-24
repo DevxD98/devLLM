@@ -4,13 +4,13 @@
 |-------|-------|
 | Status | accepted |
 | Date | 2026-07-24 |
-| Deciders | DevLLM Core Team |
+| Deciders | JimmyLabs Core Team |
 | Related | docs/09_TRANSFORMER.md · docs/02_ARCHITECTURE.md · SPEC.md §2 |
 
 ## Context
 When stacking multiple transformer blocks, activation scales and gradient magnitudes can become unstable during training. The original 2017 Transformer architecture (Vaswani et al.) applied Layer Normalization after each sublayer's residual addition (Post-Layer Normalization, or Post-Norm): `x_{l+1} = LayerNorm(x_l + Sublayer(x_l))`. In Post-Norm, gradients flowing back through deep stacks must pass through the normalization layer at every block. This places severe bounds on gradient scale, requiring careful learning-rate warmup schedules and precise initialization to prevent vanishing or exploding gradients.
 
-For DevLLM, training on a MacBook Air M1 (8 GB unified memory, MPS backend), training stability is critical. We need an architecture that trains reliably from step zero without requiring complex warmup tuning or extra memory overhead for gradient stabilization. Modern GPT architectures (GPT-2, GPT-3, LLaMA) place Layer Normalization on the input of each sublayer before the attention and feed-forward operations (Pre-Layer Normalization, or Pre-Norm): `x_{l+1} = x_l + Sublayer(LayerNorm(x_l))`.
+For JimmyLabs, training on a MacBook Air M1 (8 GB unified memory, MPS backend), training stability is critical. We need an architecture that trains reliably from step zero without requiring complex warmup tuning or extra memory overhead for gradient stabilization. Modern GPT architectures (GPT-2, GPT-3, LLaMA) place Layer Normalization on the input of each sublayer before the attention and feed-forward operations (Pre-Layer Normalization, or Pre-Norm): `x_{l+1} = x_l + Sublayer(LayerNorm(x_l))`.
 
 ## Options considered
 
@@ -34,7 +34,7 @@ For DevLLM, training on a MacBook Air M1 (8 GB unified memory, MPS backend), tra
   - Requires an explicit final LayerNorm operation before the language model head (`logits = LMHead(LayerNorm(x))`).
 
 ## Decision
-We chose **Option B (Pre-Layer Normalization)** as the default baseline for DevLLM. Pre-Norm guarantees a clean residual gradient highway (`x + Sublayer(LayerNorm(x))`), preventing gradient collapse and enabling robust, stable training without fragile warmup requirements on 8 GB Apple Silicon hardware.
+We chose **Option B (Pre-Layer Normalization)** as the default baseline for JimmyLabs. Pre-Norm guarantees a clean residual gradient highway (`x + Sublayer(LayerNorm(x))`), preventing gradient collapse and enabling robust, stable training without fragile warmup requirements on 8 GB Apple Silicon hardware.
 
 ## Consequences
 - **Easier now:** Training is significantly more stable across learning rates; gradients flow directly through skip connections; hyperparameter tuning is simpler.

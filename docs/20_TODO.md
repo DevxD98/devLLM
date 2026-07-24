@@ -8,7 +8,7 @@
 
 ## Purpose
 
-This document tracks active development tasks, milestone goals, and architecture review action items across the DevLLM project. It ensures every folder earns its keep and all implementation milestones are completed systematically.
+This document tracks active development tasks, milestone goals, and architecture review action items across the JimmyLabs project. It ensures every folder earns its keep and all implementation milestones are completed systematically.
 
 ---
 

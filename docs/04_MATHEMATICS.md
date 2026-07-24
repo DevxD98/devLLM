@@ -15,7 +15,7 @@ Machine learning literature is filled with mathematical notation that often conc
 3. **Derivatives and the Chain Rule** — how we calculate direction to fix errors.
 4. **Softmax** — how raw scores are turned into probability distributions.
 
-This document is the **canonical home** in DevLLM for matrix multiplication and the softmax function. Other documents ([`05_NEURAL_NETWORKS.md`](05_NEURAL_NETWORKS.md), [`08_ATTENTION.md`](08_ATTENTION.md)) use these operations, but this document explains *why* they work, *how* to compute them, and *what* their tensor shapes mean.
+This document is the **canonical home** in JimmyLabs for matrix multiplication and the softmax function. Other documents ([`05_NEURAL_NETWORKS.md`](05_NEURAL_NETWORKS.md), [`08_ATTENTION.md`](08_ATTENTION.md)) use these operations, but this document explains *why* they work, *how* to compute them, and *what* their tensor shapes mean.
 
 ---
 
@@ -80,7 +80,7 @@ where $\|u\|$ is the length (magnitude) of vector $u$, and $\theta$ is the angle
 
 ### 2. Matrix Multiplication (Matmul) — Canonical Definition
 
-Matrix multiplication is the workhorse of deep learning. In DevLLM, over 99% of floating-point operations (FLOPs) happen inside matrix multiplications.
+Matrix multiplication is the workhorse of deep learning. In JimmyLabs, over 99% of floating-point operations (FLOPs) happen inside matrix multiplications.
 
 #### The Rule of Shapes
 To multiply matrix $A$ (shape $M \times K$) by matrix $B$ (shape $K \times N$), the **inner dimensions must match** ($K$). The resulting matrix $C = A B$ has shape $M \times N$:

@@ -9,7 +9,7 @@ doc owns the intuition and the math; the architecture doc owns the concrete data
 tensor shapes, and module boundaries.
 
 If you are learning an idea for the first time, start in `docs/`. If you already
-understand the idea and want to know how DevLLM implements it, come here.
+understand the idea and want to know how JimmyLabs implements it, come here.
 
 ## What belongs here
 

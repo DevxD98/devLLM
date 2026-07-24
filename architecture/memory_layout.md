@@ -3,7 +3,7 @@
 > **Concept Doc:** [`docs/13_OPTIMIZATION_FOR_APPLE_SILICON.md`](../docs/13_OPTIMIZATION_FOR_APPLE_SILICON.md)  
 > **Technical Spec:** [`SPEC.md` §6](../SPEC.md#6-memory-usage-fp32-on-8-gb)
 
-This document maps memory allocations across CPU, MPS (GPU), weights, optimizer states, and dynamic activation tensors for DevLLM running on an 8 GB Apple Silicon M1 Mac.
+This document maps memory allocations across CPU, MPS (GPU), weights, optimizer states, and dynamic activation tensors for JimmyLabs running on an 8 GB Apple Silicon M1 Mac.
 
 ---
 

@@ -1,4 +1,4 @@
-# Curriculum — the DevLLM mini-university
+# Curriculum — the JimmyLabs mini-university
 
 > A structured, week-by-week course that turns [`03_LEARNING_PATH.md`](03_LEARNING_PATH.md)
 > (the *map*) into a *syllabus* (the schedule). Where the learning path says "understand
@@ -174,7 +174,7 @@ already in the repo).
 
 ## How to know you're done
 
-You've completed the course when you can, from a blank file, **rebuild DevLLM's forward
+You've completed the course when you can, from a blank file, **rebuild JimmyLabs's forward
 pass from memory, train it, generate from it, and explain every design choice** — and when
 your [`21_DEVLOG.md`](21_DEVLOG.md) tells the honest story of where you got stuck and how you
 got unstuck. That devlog is the real diploma.

@@ -12,7 +12,7 @@ Neural networks cannot process raw text strings like `"Hello world"`. They only 
 
 $$\text{Text String} \quad \mathop{\rightleftarrows}_{\text{decode}}^{\text{encode}} \quad \text{Integer Token IDs}$$
 
-This document explains tokenization strategies, vocabulary construction, encoding/decoding workflows, and alignment with [`ADR-0001`](../research/design_decisions/ADR-0001-character-tokenizer-first.md). It is the **canonical home** in DevLLM for tokenizer concepts.
+This document explains tokenization strategies, vocabulary construction, encoding/decoding workflows, and alignment with [`ADR-0001`](../research/design_decisions/ADR-0001-character-tokenizer-first.md). It is the **canonical home** in JimmyLabs for tokenizer concepts.
 
 ---
 
@@ -30,12 +30,12 @@ Text can be broken down into discrete units at three primary granularity levels:
 ```
 
 1. **Word-level:** Splits on whitespace/punctuation. Vocabulary explosion; cannot handle unseen words (Out-Of-Vocabulary / OOV).
-2. **Character-level (DevLLM v0.1 Default):** Treats every character (`a-z`, `A-Z`, punctuation, spaces) as a token. Vocabulary is tiny (~65–100), OOV errors are impossible, but sequence length $T$ is longer per sentence.
+2. **Character-level (JimmyLabs v0.1 Default):** Treats every character (`a-z`, `A-Z`, punctuation, spaces) as a token. Vocabulary is tiny (~65–100), OOV errors are impossible, but sequence length $T$ is longer per sentence.
 3. **Subword / BPE (Byte-Pair Encoding):** Iteratively merges frequent character pairs into subwords (e.g. `"ing"`, `"th"`). Balances sequence length and vocabulary size.
 
 ### Alignment with ADR-0001
 
-As documented in [`ADR-0001`](../research/design_decisions/ADR-0001-character-tokenizer-first.md), DevLLM starts explicitly with a **character-level tokenizer**. 
+As documented in [`ADR-0001`](../research/design_decisions/ADR-0001-character-tokenizer-first.md), JimmyLabs starts explicitly with a **character-level tokenizer**. 
 
 Starting with a character tokenizer removes an entire class of preprocessing dependencies and edge-case bugs (unk tokens, byte merges, vocabulary files) from the critical early path, letting us focus on transformer mechanics.
 
@@ -199,6 +199,6 @@ You master tokenization principles when you can:
 ## Further Reading
 
 - [`07_EMBEDDINGS.md`](07_EMBEDDINGS.md) — **Next:** Mapping token IDs to continuous vector embeddings.
-- [`architecture/tokenizer_architecture.md`](../architecture/tokenizer_architecture.md) — Concrete data flow and module boundaries for tokenization in DevLLM.
+- [`architecture/tokenizer_architecture.md`](../architecture/tokenizer_architecture.md) — Concrete data flow and module boundaries for tokenization in JimmyLabs.
 
 > **Next:** [`07_EMBEDDINGS.md`](07_EMBEDDINGS.md)

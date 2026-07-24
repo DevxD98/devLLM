@@ -10,12 +10,12 @@
 
 Training teaches a GPT model the probability distribution of next tokens $P(x_t \mid x_{<t})$. **Inference** is the execution process that uses this learned distribution to generate new text.
 
-This document details the mechanics of text generation in DevLLM:
+This document details the mechanics of text generation in JimmyLabs:
 1. **The Autoregressive Loop** — generating text token-by-token.
 2. **Sampling Strategies** — Temperature scaling, Top-$K$ filtering, and Top-$P$ (nucleus) sampling.
 3. **KV Cache Concept Introduction** — reducing generation complexity from $O(T^2)$ to $O(T)$ per step.
 
-This document is the **canonical home** in DevLLM for autoregressive sampling knobs and the conceptual introduction to the KV Cache.
+This document is the **canonical home** in JimmyLabs for autoregressive sampling knobs and the conceptual introduction to the KV Cache.
 
 ---
 
@@ -197,6 +197,6 @@ You master inference mechanics when you can:
 ## Further Reading
 
 - [`13_OPTIMIZATION_FOR_APPLE_SILICON.md`](13_OPTIMIZATION_FOR_APPLE_SILICON.md) — **Next:** Optimizing inference and training on Apple Silicon 8 GB unified memory.
-- [`architecture/inference_pipeline.md`](../architecture/inference_pipeline.md) — Concrete data flow for inference execution in DevLLM.
+- [`architecture/inference_pipeline.md`](../architecture/inference_pipeline.md) — Concrete data flow for inference execution in JimmyLabs.
 
 > **Next:** [`13_OPTIMIZATION_FOR_APPLE_SILICON.md`](13_OPTIMIZATION_FOR_APPLE_SILICON.md)

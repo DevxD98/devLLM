@@ -1,4 +1,4 @@
-# SPEC.md — DevLLM Technical Specification
+# SPEC.md — JimmyLabs Technical Specification
 
 > **Status:** living source of truth. When code and this document disagree, that's a bug in
 > one of them — reconcile explicitly (update the spec *or* fix the code), never silently.
@@ -133,7 +133,7 @@ attention term grows as `B·T²`:
      T=1024, B=64   →   ~256 MB/layer  ×L  →  gigabytes  (won't fit)
 ```
 
-This is *why* DevLLM keeps `block_size` modest and treats context length as a memory
+This is *why* JimmyLabs keeps `block_size` modest and treats context length as a memory
 decision, not a free knob. Full treatment:
 [`docs/13_OPTIMIZATION_FOR_APPLE_SILICON.md`](docs/13_OPTIMIZATION_FOR_APPLE_SILICON.md),
 [`architecture/memory_layout.md`](architecture/memory_layout.md).

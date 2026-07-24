@@ -1,4 +1,4 @@
-# `docs/` — the DevLLM textbook
+# `docs/` — the JimmyLabs textbook
 
 This folder is a **book**, not a wiki. The files are numbered because they are meant to be
 read roughly in order: each builds on vocabulary and intuition established earlier. You can

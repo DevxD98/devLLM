@@ -1,5 +1,5 @@
 # configs/model_v0_1_char_100k.yaml
-# DevLLM v0.1 Character Baseline Model Configuration
+# JimmyLabs v0.1 Character Baseline Model Configuration
 # Target: ~0.82M parameters (computed baseline in SPEC.md §3 & §5)
 # Fits comfortably within 8 GB unified memory on Apple Silicon (MPS backend)
 

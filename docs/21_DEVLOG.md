@@ -8,7 +8,7 @@
 
 ## Purpose
 
-The Devlog is a chronological record of major project milestones, architectural decisions, and lab notes. It records *how* DevLLM evolved from initial design scaffolds to a working 1–4M parameter model.
+The Devlog is a chronological record of major project milestones, architectural decisions, and lab notes. It records *how* JimmyLabs evolved from initial design scaffolds to a working 1–4M parameter model.
 
 ---
 

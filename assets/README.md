@@ -2,7 +2,7 @@
 
 ## Why this folder exists
 
-DevLLM's diagrams are ASCII first (see [`diagrams/`](../diagrams/)) because ASCII lives in
+JimmyLabs's diagrams are ASCII first (see [`diagrams/`](../diagrams/)) because ASCII lives in
 plain text, diffs cleanly in git, and never rots. But some things — a loss curve, an
 attention heatmap, a photo of a whiteboard — are genuinely raster. Those live here.
 

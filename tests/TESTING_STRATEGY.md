@@ -1,6 +1,6 @@
 # Testing Strategy
 
-> Most hobby ML repos have zero tests. DevLLM treats tests as **executable claims about what
+> Most hobby ML repos have zero tests. JimmyLabs treats tests as **executable claims about what
 > each component is** — the clearest possible statement of what attention, a block, or the
 > tokenizer is *supposed to do* — not just regression insurance (principle 6). This document
 > is the full strategy; [`tests/README.md`](README.md) is the short version.

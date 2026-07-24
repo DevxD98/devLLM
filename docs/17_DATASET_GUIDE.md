@@ -11,7 +11,7 @@
 ## Purpose
 
 The data decides what the model can possibly learn. This document explains **which corpora
-DevLLM uses and why**, the licensing and cleaning each requires, and — crucially — the one
+JimmyLabs uses and why**, the licensing and cleaning each requires, and — crucially — the one
 principle that governs all of it: **match data complexity to model capacity.** A 1–4M-param
 model fed the whole internet learns to produce fluent-sounding mush; the same model fed
 simple, consistent English can produce genuinely coherent text.
@@ -25,7 +25,7 @@ simple, consistent English can produce genuinely coherent text.
 Eldan & Li's *TinyStories* showed that models with only millions of parameters generate
 coherent English **when the training text is simple enough** (short stories using a small
 vocabulary a 3–4-year-old would know). The lesson is not "small models are bad" — it's
-"small models need appropriately simple data." This directly shapes DevLLM's choices: we
+"small models need appropriately simple data." This directly shapes JimmyLabs's choices: we
 prefer **small, clean, consistent** corpora over large, messy, diverse ones.
 
 ```
@@ -68,7 +68,7 @@ character level, a corpus is pre-tokenized once into a flat array of int IDs on 
 | FineWeb | ~TBs | very high | far beyond our scale | check terms |
 | Code (e.g. small Stack subset) | varies | structured | fun v0.3+ experiment (structure ≠ prose) | **permissive licenses only** |
 
-### The verdict for DevLLM
+### The verdict for JimmyLabs
 
 1. **Shakespeare first** — ~1 MB, one file, public domain. It's the *sanity* dataset: small
    enough to overfit deliberately (proving the model can learn — see the overfit-a-batch
@@ -144,7 +144,7 @@ Fill the real numbers into a benchmark record once measured.
 ```
    simple ├─ Shakespeare ─ TinyStories ─┼─ WikiText ─┼─ OpenWebText ─ FineWeb ─┤ complex
           │   ✅ sanity      ✅ primary    │  ⚠ stretch │      ❌ mush for 1–4M       │
-          └──────────── DevLLM lives here ─┘            └── excluded (on record) ─────┘
+          └──────────── JimmyLabs lives here ─┘            └── excluded (on record) ─────┘
 ```
 
 ---

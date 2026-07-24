@@ -10,7 +10,7 @@
 
 Having constructed the complete GPT architecture ([`10_GPT_ARCHITECTURE.md`](10_GPT_ARCHITECTURE.md)), we must train its parameters. A training pipeline transforms a raw sequence of token IDs into a optimized language model through an iterative optimization loop.
 
-This document details the mechanics of DevLLM's training pipeline:
+This document details the mechanics of JimmyLabs's training pipeline:
 1. **Cross-Entropy Loss Computation** on autoregressive target tokens.
 2. **AdamW Optimizer Mechanics** — momentum, weight decay exclusion, and state tracking.
 3. **Learning Rate Scheduling** — linear warmup followed by cosine decay.
@@ -224,6 +224,6 @@ You master the training pipeline when you can:
 ## Further Reading
 
 - [`12_INFERENCE.md`](12_INFERENCE.md) — **Next:** Generating text from trained model checkpoints.
-- [`architecture/training_pipeline.md`](../architecture/training_pipeline.md) — Concrete data flow and module boundaries for training in DevLLM.
+- [`architecture/training_pipeline.md`](../architecture/training_pipeline.md) — Concrete data flow and module boundaries for training in JimmyLabs.
 
 > **Next:** [`12_INFERENCE.md`](12_INFERENCE.md)

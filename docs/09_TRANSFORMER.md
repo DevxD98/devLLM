@@ -71,10 +71,10 @@ Four ingredients, then the recipe.
 ### Pre-norm vs post-norm — a real design decision
 
 The original 2017 transformer applied LayerNorm *after* each sublayer ("post-norm").
-Modern GPTs, including DevLLM, apply it *before* each sublayer ("**pre-norm**"):
+Modern GPTs, including JimmyLabs, apply it *before* each sublayer ("**pre-norm**"):
 
 ```
-   POST-NORM (original)          PRE-NORM (DevLLM / GPT-2+)
+   POST-NORM (original)          PRE-NORM (JimmyLabs / GPT-2+)
    x → sublayer → +x → norm      x → norm → sublayer → +x
 ```
 
@@ -90,7 +90,7 @@ sensitive to learning-rate warmup. This choice is recorded as an ADR in
 
 ### The block, sublayer by sublayer
 
-A DevLLM (pre-norm) transformer block does, in order:
+A JimmyLabs (pre-norm) transformer block does, in order:
 
 ```
    1.  a = x + MHSA( LayerNorm(x) )        # tokens exchange information
@@ -133,7 +133,7 @@ The ×4 expansion is a convention (from the original paper) that balances capaci
 cost. **GELU** (Gaussian Error Linear Unit) is the activation modern GPTs use; it's a
 smooth version of ReLU. The nonlinearity is essential: two matrix multiplies with nothing
 between them are mathematically just one matrix multiply, so without GELU the FFN could
-represent only linear functions. In a 1–4M-parameter DevLLM, these two matrices are where
+represent only linear functions. In a 1–4M-parameter JimmyLabs, these two matrices are where
 **most of the parameters sit** — see [`16_MODEL_CONFIGURATION.md`](16_MODEL_CONFIGURATION.md)
 for the parameter-count arithmetic.
 
@@ -162,7 +162,7 @@ For model width `C`, one block holds approximately:
    total ≈    12 · C²  per block   (+ small LayerNorm & bias terms)
 ```
 
-So for `C = 128`, one block ≈ `12 × 128² ≈ 197K` params; a handful of blocks lands DevLLM
+So for `C = 128`, one block ≈ `12 × 128² ≈ 197K` params; a handful of blocks lands JimmyLabs
 in its 1–4M target. Notice the FFN carries **twice** the attention's parameters — a useful
 thing to remember when budgeting 8 GB.
 
@@ -241,7 +241,7 @@ gather, think, gather, think — building up increasingly abstract representatio
   every layer must be kept for backprop). Past a point, a wider/shallower model trains
   better within the budget — measure it (see [`14_BENCHMARKING.md`](14_BENCHMARKING.md)).
 - **Mixing up post-norm and pre-norm** when reading reference code. The 2017 paper is
-  post-norm; nanoGPT and GPT-2 are pre-norm like DevLLM. The diagrams look almost identical;
+  post-norm; nanoGPT and GPT-2 are pre-norm like JimmyLabs. The diagrams look almost identical;
   the training stability is not.
 
 ---
@@ -271,7 +271,7 @@ Canonical definitions in [`19_GLOSSARY.md`](19_GLOSSARY.md); the block-specific 
 | Feed-forward network (FFN) | per-position MLP: `W₂·GELU(W₁·x)`, usually ×4 expansion |
 | Residual connection | `x + Sublayer(x)`; the skip path that lets gradients flow |
 | LayerNorm | per-token normalization to zero mean, unit variance (then learned scale/shift) |
-| Pre-norm | normalize *before* each sublayer (DevLLM's choice) vs post-norm (original) |
+| Pre-norm | normalize *before* each sublayer (JimmyLabs's choice) vs post-norm (original) |
 | GELU | smooth nonlinearity used in the FFN |
 | Sublayer | one of the two components (attention, or FFN) inside a block |
 
@@ -289,7 +289,7 @@ You understand the transformer block when you can:
       gradient.
 - [ ] Explain why the FFN needs a nonlinearity, and why it expands ×4.
 - [ ] Explain why a block preserves the `(B, T, C)` shape, and why that enables stacking.
-- [ ] Explain pre-norm vs post-norm and why DevLLM chose pre-norm.
+- [ ] Explain pre-norm vs post-norm and why JimmyLabs chose pre-norm.
 - [ ] Estimate a block's parameter count as ≈ 12·C².
 
 ---
@@ -299,7 +299,7 @@ You understand the transformer block when you can:
 - Vaswani et al., *Attention Is All You Need* (2017) — introduces the block (post-norm);
   see [`research/paper_notes/attention_is_all_you_need.md`](../research/paper_notes/attention_is_all_you_need.md).
 - Radford et al., *Language Models are Unsupervised Multitask Learners* (GPT-2, 2019) — the
-  pre-norm decoder-only design DevLLM follows.
+  pre-norm decoder-only design JimmyLabs follows.
 - Ba, Kiros, Hinton, *Layer Normalization* (2016) — the normalization used here.
 - Hendrycks & Gimpel, *Gaussian Error Linear Units (GELUs)* (2016).
 
@@ -308,7 +308,7 @@ You understand the transformer block when you can:
 - Andrej Karpathy, nanoGPT — `Block`, `CausalSelfAttention`, and `MLP` in ~30 lines each;
   read them right after this doc and every line will be familiar.
 - [`architecture/model_architecture.md`](../architecture/model_architecture.md) — the block
-  in DevLLM's concrete wiring, with shapes.
+  in JimmyLabs's concrete wiring, with shapes.
 - [`10_GPT_ARCHITECTURE.md`](10_GPT_ARCHITECTURE.md) — **next:** stack blocks into a GPT and
   add the language-model head.
 

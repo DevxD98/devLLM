@@ -6,7 +6,7 @@
 | Year | 2017 |
 | Venue | NeurIPS |
 | Read on | 2026-07-24 |
-| Reused in DevLLM | attention, transformer block, positional encoding idea |
+| Reused in JimmyLabs | attention, transformer block, positional encoding idea |
 
 > A note is not a summary. It records what **we** understood and what **we** borrowed —
 > in our own words. The teaching version lives in
@@ -14,7 +14,7 @@
 
 ## Why we read it
 
-It is the origin of the transformer — the architecture every modern LLM, including DevLLM,
+It is the origin of the transformer — the architecture every modern LLM, including JimmyLabs,
 descends from. You cannot claim to build a GPT "from scratch, with understanding" without
 reading the paper that defines the core operation.
 
@@ -34,7 +34,7 @@ token a direct path to every other token (a big deal for long-range dependencies
   → [`docs/08_ATTENTION.md`](../../docs/08_ATTENTION.md).
 - **Multi-head attention** — run several attention operations in parallel over splits of the
   embedding so different heads capture different relationships. → doc 08.
-- **The sublayer pattern** — `Sublayer + residual + normalization`, stacked. DevLLM keeps
+- **The sublayer pattern** — `Sublayer + residual + normalization`, stacked. JimmyLabs keeps
   the pattern but moves the norm to *pre-norm* (a later refinement, see below). → doc 09.
 - **Position must be injected explicitly** — since attention is order-agnostic, position
   information has to be added. They use fixed sinusoids; we start with learned positional
@@ -49,7 +49,7 @@ token a direct path to every other token (a big deal for long-range dependencies
 - **Sinusoidal positional encodings.** Elegant, but learned positional embeddings are simpler
   to reason about at our scale; RoPE is a later option
   ([`architecture/future_architecture.md`](../../architecture/future_architecture.md)).
-- **Post-norm placement.** The paper normalizes *after* each sublayer; GPT-2+ and DevLLM use
+- **Post-norm placement.** The paper normalizes *after* each sublayer; GPT-2+ and JimmyLabs use
   pre-norm for training stability. Recorded as a design decision. → doc 09.
 - **Label smoothing, big-batch training schedules, BLEU tuning** — translation-specific
   machinery irrelevant to a tiny character-level LM.

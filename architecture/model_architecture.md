@@ -3,7 +3,7 @@
 > **Concept Doc:** [`docs/10_GPT_ARCHITECTURE.md`](../docs/10_GPT_ARCHITECTURE.md)  
 > **Technical Spec:** [`SPEC.md` §2–4](../SPEC.md#2-architecture)
 
-This document defines the concrete module wiring, tensor data paths, and shape contracts for DevLLM's decoder-only GPT model (`src/model/`).
+This document defines the concrete module wiring, tensor data paths, and shape contracts for JimmyLabs's decoder-only GPT model (`src/model/`).
 
 ---
 

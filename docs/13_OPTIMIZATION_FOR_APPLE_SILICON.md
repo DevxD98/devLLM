@@ -11,7 +11,7 @@
 ## Purpose
 
 Most "train a GPT" material assumes an NVIDIA GPU with CUDA, dedicated VRAM, and a fan.
-DevLLM assumes none of those. This document explains how Apple Silicon — the **M1's unified
+JimmyLabs assumes none of those. This document explains how Apple Silicon — the **M1's unified
 memory**, the **MPS (Metal) backend** in PyTorch, and a **fanless thermal envelope** —
 actually behaves, and how those facts should shape the model and the training loop. The
 goal is not a bag of tricks; it's a *mental model* of the machine, from which the right
@@ -58,7 +58,7 @@ Each is a double-edged sword. The rest of this doc is about which edge you get.
 - **Thermal throttling:** the SoC reduces frequency under sustained heat; a fanless Air
   hits this sooner than a MacBook Pro.
 - **MLX:** Apple's own array/ML framework, designed *around* unified memory with lazy
-  evaluation. A comparison target, not a DevLLM dependency
+  evaluation. A comparison target, not a JimmyLabs dependency
   ([`research/tiny_gpt_landscape.md`](../research/tiny_gpt_landscape.md)).
 
 ---
@@ -78,7 +78,7 @@ process before memory pressure begins. So the effective budget for *(weights + g
 optimizer state + activations + the dataset batch + framework overhead)* is smaller than
 the sticker says.
 
-Implication for design: at DevLLM's scale, weights are trivial (see [`SPEC.md`](../SPEC.md)
+Implication for design: at JimmyLabs's scale, weights are trivial (see [`SPEC.md`](../SPEC.md)
 §6 — v0.1's weights + optimizer ≈ 13 MB). The thing that fills memory is **activations**,
 and the biggest single activation is the **O(T²) attention matrix**. So on Apple Silicon,
 the highest-leverage "memory optimizations" are the ones that shrink `B·T²`, not the ones
@@ -160,7 +160,7 @@ Practical loop hygiene that matters more on MPS than people expect:
 
 ### When to reach for MLX
 
-PyTorch/MPS is the right default for DevLLM (it's what the from-scratch pieces are built on,
+PyTorch/MPS is the right default for JimmyLabs (it's what the from-scratch pieces are built on,
 and it's widely documented). **MLX** — Apple's framework — is built natively around unified
 memory and lazy evaluation and can be faster or lighter for some transformer workloads. It's
 worth a **benchmarked comparison experiment** (does the same tiny GPT train faster in MLX on
@@ -226,7 +226,7 @@ decision for an ADR, not a default.
   can serialize training. Batch your logging.
 - **Copy-pasting CUDA `autocast`/AMP recipes.** MPS mixed precision has different maturity
   and pitfalls; verify on *your* version before trusting it.
-- **Chasing parameter-count reductions to save memory.** At DevLLM's scale, weights are
+- **Chasing parameter-count reductions to save memory.** At JimmyLabs's scale, weights are
   ~megabytes; activations and the O(T²) attention matrix are the real consumers. Optimize
   the right thing.
 - **Filling all 8 GB and blaming the model when it crawls.** You crossed into swap/pressure.
@@ -269,7 +269,7 @@ Every item above is a *hypothesis* until [`benchmarks/`](../benchmarks/) says ot
 ## Learning Checklist
 
 - [ ] Explain why there's no host↔device copy on the M1, and why that's both good and a tax.
-- [ ] State roughly how much of 8 GB is actually yours, and what fills it at DevLLM's scale.
+- [ ] State roughly how much of 8 GB is actually yours, and what fills it at JimmyLabs's scale.
 - [ ] Explain why the O(T²) attention matrix — not parameter count — is the memory to watch.
 - [ ] Describe the MPS async trap and name three calls that force a sync.
 - [ ] Explain why fanless thermals make cold benchmarks misleading.
@@ -289,7 +289,7 @@ Every item above is a *hypothesis* until [`benchmarks/`](../benchmarks/) says ot
 ## Further Reading
 
 - [`architecture/apple_silicon_strategy.md`](../architecture/apple_silicon_strategy.md) —
-  DevLLM's concrete device/dtype placement decisions.
+  JimmyLabs's concrete device/dtype placement decisions.
 - [`architecture/memory_layout.md`](../architecture/memory_layout.md) — where each large
   tensor lives in 8 GB.
 - [`14_BENCHMARKING.md`](14_BENCHMARKING.md) — **next:** how to measure all of the above

@@ -8,7 +8,7 @@
 
 ## Purpose
 
-This document is the **single canonical source of truth** for definitions across the DevLLM project. Whenever a term is referenced in `docs/`, `research/`, or `architecture/`, its single canonical definition resides here to maintain strict cross-reference discipline and prevent conceptual drift.
+This document is the **single canonical source of truth** for definitions across the JimmyLabs project. Whenever a term is referenced in `docs/`, `research/`, or `architecture/`, its single canonical definition resides here to maintain strict cross-reference discipline and prevent conceptual drift.
 
 ---
 
@@ -34,7 +34,7 @@ This document is the **single canonical source of truth** for definitions across
 - **Cross-Entropy Loss:** Negative log probability loss measuring accuracy of next-token predictions against target labels ([`05_NEURAL_NETWORKS.md`](05_NEURAL_NETWORKS.md)).
 
 ### D
-- **Decoder-Only:** Transformer architecture using causal self-attention without cross-attention or an encoder stack (e.g. GPT-2, DevLLM) ([`10_GPT_ARCHITECTURE.md`](10_GPT_ARCHITECTURE.md)).
+- **Decoder-Only:** Transformer architecture using causal self-attention without cross-attention or an encoder stack (e.g. GPT-2, JimmyLabs) ([`10_GPT_ARCHITECTURE.md`](10_GPT_ARCHITECTURE.md)).
 - **Dot Product:** Operation taking two equal-length vectors and producing a scalar measuring directional alignment ([`04_MATHEMATICS.md`](04_MATHEMATICS.md)).
 - **Dropout:** Regularization technique zeroing random activations with probability $p$ during training ([`16_MODEL_CONFIGURATION.md`](16_MODEL_CONFIGURATION.md)).
 

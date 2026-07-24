@@ -1,4 +1,4 @@
-# Engineering Principles — the DevLLM constitution
+# Engineering Principles — the JimmyLabs constitution
 
 > These are the rules the project holds itself to. They are deliberately few, deliberately
 > strict, and deliberately about **process**, not code style. When a decision is unclear,

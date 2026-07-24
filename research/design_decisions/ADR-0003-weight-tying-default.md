@@ -4,7 +4,7 @@
 |-------|-------|
 | Status | accepted |
 | Date | 2026-07-24 |
-| Deciders | DevLLM Core Team |
+| Deciders | JimmyLabs Core Team |
 | Related | SPEC.md §5 · research/OPTIMIZATION_BACKLOG.md #1 · docs/09_TRANSFORMER.md · docs/16_MODEL_CONFIGURATION.md |
 
 ## Context
@@ -12,7 +12,7 @@ In a language model, the token embedding layer maps token indices into a continu
 
 In early Transformer implementations, these two matrices were initialized and trained independently. However, Press & Wolf (2017) demonstrated that sharing (tying) the weight matrix between the input token embeddings and the output linear projection (`W_out = W_embᵀ`) yields equal or superior language modeling performance while significantly reducing parameter count. 
 
-For DevLLM's v0.1 baseline (`V=65, C=128`), untied weights would add an extra `V · C = 8,320` parameters to the head. At larger vocabulary sizes (e.g. `V=512`), untied weights add over 65,000 parameters. Architecture Review item R2 noted that framing weight tying as a "Phase 4 optimization" undersells a fundamental design choice: weight tying is a free parameter and memory win that should be active by default in v0.1.
+For JimmyLabs's v0.1 baseline (`V=65, C=128`), untied weights would add an extra `V · C = 8,320` parameters to the head. At larger vocabulary sizes (e.g. `V=512`), untied weights add over 65,000 parameters. Architecture Review item R2 noted that framing weight tying as a "Phase 4 optimization" undersells a fundamental design choice: weight tying is a free parameter and memory win that should be active by default in v0.1.
 
 ## Options considered
 

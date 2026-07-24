@@ -1,6 +1,6 @@
 # Optimization Backlog
 
-> The engineering roadmap for making DevLLM leaner and faster **on 8 GB Apple Silicon** —
+> The engineering roadmap for making JimmyLabs leaner and faster **on 8 GB Apple Silicon** —
 > prioritized, and governed by the iron rule: *nothing here is "done" until a benchmark
 > proves the win* (principles 1–2). Each item links to the concept doc that explains it.
 >

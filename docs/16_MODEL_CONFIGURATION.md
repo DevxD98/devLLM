@@ -8,9 +8,9 @@
 
 ## Purpose
 
-A model in DevLLM is not defined by arbitrary inline values scattered across code—it is defined strictly as **a configuration file plus a random seed**. 
+A model in JimmyLabs is not defined by arbitrary inline values scattered across code—it is defined strictly as **a configuration file plus a random seed**. 
 
-This document explains the specification, role, memory cost, and quality trade-offs of every configuration field in DevLLM. It enforces **Principle 8** (*Configuration is separate from implementation*) and **Principle 5** (*No unexplained magic numbers*) from [`ENGINEERING_PRINCIPLES.md`](../ENGINEERING_PRINCIPLES.md). By decoupling hyperparameter declaration from execution logic, we ensure that every training run and model architecture variant is diffable, reproducible, and explicitly budgeted for an 8 GB Apple Silicon unified memory environment.
+This document explains the specification, role, memory cost, and quality trade-offs of every configuration field in JimmyLabs. It enforces **Principle 8** (*Configuration is separate from implementation*) and **Principle 5** (*No unexplained magic numbers*) from [`ENGINEERING_PRINCIPLES.md`](../ENGINEERING_PRINCIPLES.md). By decoupling hyperparameter declaration from execution logic, we ensure that every training run and model architecture variant is diffable, reproducible, and explicitly budgeted for an 8 GB Apple Silicon unified memory environment.
 
 ---
 

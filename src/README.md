@@ -2,7 +2,7 @@
 
 ## Why this folder exists
 
-This is where DevLLM actually lives as code. Everything else in the repository exists to
+This is where JimmyLabs actually lives as code. Everything else in the repository exists to
 explain, test, configure, or measure what is in here. The organizing principle: **each
 module does one thing, exposes a small interface, and can be understood and tested in
 isolation** (design commitment ④).

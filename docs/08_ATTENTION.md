@@ -246,7 +246,7 @@ in this project (see [`15_EXPERIMENT_GUIDE.md`](15_EXPERIMENT_GUIDE.md)).
 
 The `Q Kᵀ` matrix is `T × T`. So attention's compute and memory scale as **O(T²)** in the
 sequence length `T`. Double the context, quadruple the attention cost. On a MacBook Air M1
-with 8 GB of unified memory this is a *hard* constraint: it's why DevLLM keeps `block_size`
+with 8 GB of unified memory this is a *hard* constraint: it's why JimmyLabs keeps `block_size`
 (context length) modest, and why the `T × T` attention matrix — not the parameters — is
 often the thing that decides your maximum batch size. See
 [`architecture/memory_layout.md`](../architecture/memory_layout.md) and
@@ -384,7 +384,7 @@ You understand attention when you can:
 - Vaswani et al., *Attention Is All You Need* (2017) — the origin; see the worked note in
   [`research/paper_notes/attention_is_all_you_need.md`](../research/paper_notes/attention_is_all_you_need.md).
 - Radford et al., *Improving Language Understanding by Generative Pre-Training* (GPT-1) —
-  the decoder-only, causal-masked configuration DevLLM uses.
+  the decoder-only, causal-masked configuration JimmyLabs uses.
 - Bahdanau et al. (2014) — attention's earlier appearance in translation, for historical
   context.
 
@@ -393,7 +393,7 @@ You understand attention when you can:
 - Jay Alammar, *The Illustrated Transformer* — the best-known visual walkthrough; a great
   second pass after this doc.
 - Andrej Karpathy, *Let's build GPT: from scratch* — watch him implement exactly this.
-- [`architecture/attention_flow.md`](../architecture/attention_flow.md) — DevLLM's concrete
+- [`architecture/attention_flow.md`](../architecture/attention_flow.md) — JimmyLabs's concrete
   tensor-shape wiring of the above.
 - [`09_TRANSFORMER.md`](09_TRANSFORMER.md) — **next:** wrap attention in a full block.
 

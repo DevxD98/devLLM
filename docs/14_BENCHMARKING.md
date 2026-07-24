@@ -10,7 +10,7 @@
 
 ## Purpose
 
-Optimization without measurement is superstition. This document defines DevLLM's
+Optimization without measurement is superstition. This document defines JimmyLabs's
 **benchmark suite** — *what* we measure, *how* we measure it honestly on a fanless M1, and
 *where* results are recorded — so that every performance claim in the repo is backed by a
 reproducible number, and every optimization has a before/after (principle 2).
@@ -41,7 +41,7 @@ exists to defeat them.
 - **Synchronization** — forcing the GPU queue to drain so elapsed time reflects real work
   (`torch.mps.synchronize()` around the timed region).
 - **Warm vs cold** — thermal state at measurement; must be recorded.
-- **Median over mean** — robust to thermal drift and outliers; DevLLM reports medians.
+- **Median over mean** — robust to thermal drift and outliers; JimmyLabs reports medians.
 - **Before/after** — the only valid form of an optimization result (one variable changed).
 
 ---

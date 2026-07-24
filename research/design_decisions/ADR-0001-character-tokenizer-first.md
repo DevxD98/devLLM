@@ -4,12 +4,12 @@
 |-------|-------|
 | Status | accepted |
 | Date | 2026-07-24 |
-| Deciders | DevLLM project |
+| Deciders | JimmyLabs project |
 | Related | [`docs/06_TOKENIZER.md`](../../docs/06_TOKENIZER.md) · [`docs/03_LEARNING_PATH.md`](../../docs/03_LEARNING_PATH.md) |
 
 ## Context
 
-DevLLM needs to turn text into integer token IDs before anything else can happen
+JimmyLabs needs to turn text into integer token IDs before anything else can happen
 ([`docs/06_TOKENIZER.md`](../../docs/06_TOKENIZER.md)). The two realistic choices for an
 educational, from-scratch project on 8 GB are a **character-level** tokenizer (one ID per
 character) or a **subword/BPE** tokenizer (one ID per frequent character-chunk, like

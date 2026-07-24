@@ -1,4 +1,4 @@
-# ── DevLLM: version the recipe, not the output ──────────────────────────
+# ── JimmyLabs: version the recipe, not the output ──────────────────────────
 
 # Model weights — large, binary, regenerable from config + seed + data.
 checkpoints/**

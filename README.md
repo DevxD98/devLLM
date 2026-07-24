@@ -6,12 +6,18 @@
 <div align="center">
 
 ```
-        ██████╗ ███████╗██╗   ██╗██╗     ██╗     ███╗   ███╗
-        ██╔══██╗██╔════╝██║   ██║██║     ██║     ████╗ ████║
-        ██║  ██║█████╗  ██║   ██║██║     ██║     ██╔████╔██║
-        ██║  ██║██╔══╝  ╚██╗ ██╔╝██║     ██║     ██║╚██╔╝██║
-        ██████╔╝███████╗ ╚████╔╝ ███████╗███████╗██║ ╚═╝ ██║
-        ╚═════╝ ╚══════╝  ╚═══╝  ╚══════╝╚══════╝╚═╝     ╚═╝
+        ██╗██╗███╗   ███╗███╗   ███╗██╗   ██╗
+        ██║██║████╗ ████║████╗ ████║╚██╗ ██╔╝
+        ██║██║██╔████╔██║██╔████╔██║ ╚████╔╝
+   ██   ██║██║██║╚██╔╝██║██║╚██╔╝██║  ╚██╔╝
+   ╚█████╔╝██║██║ ╚═╝ ██║██║ ╚═╝ ██║   ██║
+    ╚════╝ ╚═╝╚═╝     ╚═╝╚═╝     ╚═╝   ╚═╝
+        ██╗      █████╗ ██████╗ ███████╗
+        ██║     ██╔══██╗██╔══██╗██╔════╝
+        ██║     ███████║██████╔╝███████╗
+        ██║     ██╔══██║██╔══██╗╚════██║
+        ███████╗██║  ██║██████╔╝███████║
+        ╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝
 ```
 
 ### 🧠 a language model, grown by hand, in 8 gigabytes of silence 🍃
@@ -63,7 +69,7 @@
 
 ## ✨ What is this?
 
-**DevLLM** is a from-scratch, GPT-style language model — **1–4 million parameters** — engineered, trained, and profiled entirely on a **MacBook Air M1 with 8 GB of unified memory**. No CUDA. No pretrained weights. No prebuilt transformer blocks.
+**JimmyLabs** is a from-scratch, GPT-style language model — **1–4 million parameters** — engineered, trained, and profiled entirely on a **MacBook Air M1 with 8 GB of unified memory**. No CUDA. No pretrained weights. No prebuilt transformer blocks.
 
 It is **not** trying to beat GPT‑4, Claude, Gemini, or Llama. It's trying to *understand* them — every embedding, every attention head, every gradient — by rebuilding the machine one comprehensible piece at a time, and writing down **why** each piece exists before **how** it works.
 
@@ -113,7 +119,7 @@ tensors · autograd · optimizers · MPS (Metal) acceleration
 ## 🗂️ Repository map
 
 ```
-DevLLM/
+JimmyLabs/
 ├── 📖 docs/            the textbook (numbered, read in order)
 ├── 🧬 architecture/    deep-dive wiring diagrams
 ├── 🔬 research/        paper notes · experiments · benchmarks · design decisions
@@ -179,7 +185,7 @@ An active, in-progress **3–4 month educational build**. The documentation is w
 
 <br/>
 
-Most hobby ML repos are code-first: someone gets a model training, then maybe writes a README. The understanding — if it ever existed — evaporates. DevLLM inverts this. Each component is *explained* before it's *built*, so the code becomes the natural consequence of a clear idea rather than a thing to reverse-engineer later. The docs are the deliverable as much as the model is. See [docs/00_PROJECT_VISION.md](docs/00_PROJECT_VISION.md).
+Most hobby ML repos are code-first: someone gets a model training, then maybe writes a README. The understanding — if it ever existed — evaporates. JimmyLabs inverts this. Each component is *explained* before it's *built*, so the code becomes the natural consequence of a clear idea rather than a thing to reverse-engineer later. The docs are the deliverable as much as the model is. See [docs/00_PROJECT_VISION.md](docs/00_PROJECT_VISION.md).
 
 </details>
 

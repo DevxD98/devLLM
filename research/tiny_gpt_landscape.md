@@ -1,6 +1,6 @@
 # The Tiny-GPT Landscape — what to borrow, what to avoid
 
-> **Purpose:** understand the existing small-GPT projects so DevLLM can *learn from* them
+> **Purpose:** understand the existing small-GPT projects so JimmyLabs can *learn from* them
 > without *copying* them (principle 9, and the whole point of "from scratch"). For each: its
 > one-line identity, strengths, weaknesses **for our goal** (educational, from-scratch, tiny,
 > on an 8 GB M1), specific ideas worth borrowing, and specific things to avoid.
@@ -56,7 +56,7 @@ models; the de-facto reference for "minimal but real."
 - **Weaknesses (for us):** older, less performant, not tuned for anything; superseded by
   nanoGPT for actual training.
 - **Borrow:** the module boundaries and naming; the "explain by structure" style — it
-  mirrors DevLLM's `src/` module map.
+  mirrors JimmyLabs's `src/` module map.
 - **Avoid:** using it as a performance or training reference (that's nanoGPT's job).
 
 ### picoGPT (jaymody)
@@ -65,7 +65,7 @@ models; the de-facto reference for "minimal but real."
   wonderful for seeing that "a transformer is just matmuls and a softmax."
 - **Weaknesses (for us):** inference-only (loads pretrained weights), no training, NumPy is
   slow, no Apple-Silicon angle.
-- **Borrow:** the *minimalism as pedagogy* idea — DevLLM's forward pass should be readable
+- **Borrow:** the *minimalism as pedagogy* idea — JimmyLabs's forward pass should be readable
   in one sitting like this. A great Week-8 companion ([`docs/CURRICULUM.md`](../docs/CURRICULUM.md)).
 - **Avoid:** its "load someone else's weights" approach — we train our own.
 
@@ -125,7 +125,7 @@ quantization (GGUF) and excellent Metal support.
 ### TinyStories (Eldan & Li, dataset + paper)
 **Why it matters most:** it demonstrates empirically that **models with only millions of
 parameters can generate fluent, coherent English** when trained on a simple enough corpus.
-This is the single strongest external validation of DevLLM's premise — that a 1–4M-param
+This is the single strongest external validation of JimmyLabs's premise — that a 1–4M-param
 model is worth building and can produce real (if simple) language.
 - **Borrow:** the dataset itself (a primary training corpus, see
   [`docs/17_DATASET_GUIDE.md`](../docs/17_DATASET_GUIDE.md)) **and** the thesis: *match data
@@ -134,7 +134,7 @@ model is worth building and can produce real (if simple) language.
   model design.
 
 ### Karpathy — *Neural Networks: Zero to Hero* (video course)
-**Why it matters:** the pedagogical gold standard, and the spiritual model for DevLLM's
+**Why it matters:** the pedagogical gold standard, and the spiritual model for JimmyLabs's
 learning order (micrograd → makemore → build GPT).
 - **Borrow:** the *teaching sequence* — build backprop before trusting it, build the tokenizer
   before the model, build the forward pass before training. [`docs/CURRICULUM.md`](../docs/CURRICULUM.md)
@@ -144,7 +144,7 @@ learning order (micrograd → makemore → build GPT).
 
 ---
 
-## Synthesis — what DevLLM's identity is, by contrast
+## Synthesis — what JimmyLabs's identity is, by contrast
 
 ```
    picoGPT    minimal, but inference-only & no framework
@@ -155,7 +155,7 @@ learning order (micrograd → makemore → build GPT).
    MLX        Apple-native, but a different stack
    llama.cpp  Apple-fast, but C++ inference at another scale
    ───────────────────────────────────────────────────────────
-   DevLLM  =  readable like minGPT
+   JimmyLabs  =  readable like minGPT
             + real training loop like nanoGPT
             + Apple-Silicon-first like MLX/llama.cpp
             + documented & reproducible beyond all of them
@@ -163,7 +163,7 @@ learning order (micrograd → makemore → build GPT).
 ```
 
 No existing project sits at that intersection. That gap — *readable, trainable,
-Apple-Silicon-first, and exhaustively documented at tiny scale* — is DevLLM's reason to
+Apple-Silicon-first, and exhaustively documented at tiny scale* — is JimmyLabs's reason to
 exist.
 
 ## See also

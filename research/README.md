@@ -5,7 +5,7 @@
 A model is only half of an educational project. The other half is the **record of why
 it looks the way it does**: which papers shaped it, which experiments were run, what was
 measured, and which decisions were made (and later reversed). This folder is the memory
-of the project's reasoning. If DevLLM is a small research lab, `research/` is its bound
+of the project's reasoning. If JimmyLabs is a small research lab, `research/` is its bound
 notebook — nothing here is throwaway.
 
 ## Structure

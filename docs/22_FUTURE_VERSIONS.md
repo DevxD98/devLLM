@@ -8,7 +8,7 @@
 
 ## Purpose
 
-This document outlines the planned evolutionary path for DevLLM beyond the v0.1 baseline model (~0.82M parameters). It details architectural upgrades, tokenization scaling, and performance optimizations planned for future versions.
+This document outlines the planned evolutionary path for JimmyLabs beyond the v0.1 baseline model (~0.82M parameters). It details architectural upgrades, tokenization scaling, and performance optimizations planned for future versions.
 
 ---
 
