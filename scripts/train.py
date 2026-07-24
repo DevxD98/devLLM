@@ -65,7 +65,18 @@ def main():
     eval_interval = config_dict['eval_interval']
     batch_size = config_dict['batch_size']
     block_size = config_dict['block_size']
-    
+
+    # Load the prepared dataset. Fail LOUDLY if it's missing — never silently train on
+    # random data (a flat loss at ln(vocab) is the symptom of exactly that mistake).
+    data_dir = Path('datasets/shakespeare')
+    train_path, val_path = data_dir / 'train.pt', data_dir / 'val.pt'
+    if not train_path.exists() or not val_path.exists():
+        raise FileNotFoundError(
+            f"Dataset not found in {data_dir}. Run `python scripts/prepare_data.py` first."
+        )
+    train_data = torch.load(train_path, weights_only=True)
+    val_data = torch.load(val_path, weights_only=True)
+
     # Setup checkpoints dir
     os.makedirs('checkpoints', exist_ok=True)
     best_val_loss = float('inf')
@@ -78,15 +89,8 @@ def main():
         for param_group in optimizer.param_groups:
             param_group['lr'] = lr
             
-        # 2. Get batch
-        # Assuming get_batch loads from the shakespeare dataset memory map
-        try:
-            X, Y = get_batch('train', batch_size, block_size)
-            X, Y = X.to(device), Y.to(device)
-        except Exception as e:
-            # Fallback for testing if dataset is not generated
-            X = torch.randint(0, model_config.vocab_size, (batch_size, block_size), device=device)
-            Y = torch.randint(0, model_config.vocab_size, (batch_size, block_size), device=device)
+        # 2. Get batch  (get_batch signature: data, block_size, batch_size, device)
+        X, Y = get_batch(train_data, block_size, batch_size, device)
             
         # 3. Forward & Loss
         logits, loss = model(X, Y)
@@ -105,12 +109,7 @@ def main():
         if step % eval_interval == 0 or step == max_steps:
             model.eval()
             with torch.no_grad():
-                try:
-                    X_val, Y_val = get_batch('val', batch_size, block_size)
-                    X_val, Y_val = X_val.to(device), Y_val.to(device)
-                except:
-                    X_val = torch.randint(0, model_config.vocab_size, (batch_size, block_size), device=device)
-                    Y_val = torch.randint(0, model_config.vocab_size, (batch_size, block_size), device=device)
+                X_val, Y_val = get_batch(val_data, block_size, batch_size, device)
                     
                 _, val_loss_tensor = model(X_val, Y_val)
                 val_loss = val_loss_tensor.item()
